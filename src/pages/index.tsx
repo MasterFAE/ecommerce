@@ -16,7 +16,7 @@ const Home: NextPage = () => {
       grid grid-cols-2 gap-x-2 gap-y-4 lg:grid-cols-3"
       >
         <div className="col-span-full min-h-[24rem]">
-          <div className="h-full w-full bg-red-600"></div>
+          <div className="h-full w-full bg-violet-600 bg-opacity-30"></div>
         </div>
         {data.map((e) => (
           <ProductCard product={e} />

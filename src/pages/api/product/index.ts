@@ -87,8 +87,7 @@ const examples = async (req: NextApiRequest, res: NextApiResponse) => {
   switch (req.method) {
     case "GET":
       const products = await prisma.product.findMany({ take: 20 });
-      // res.json(products)
-      res.status(200).json(list);
+      res.json(products);
       break;
     default:
       res.status(405).send("Unsupported method");

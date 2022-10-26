@@ -9,7 +9,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   switch (req.method) {
     case "GET":
       const product = await prisma.product.findFirst({
-        where: { id: parseInt(req.query.slug) },
+        where: { id: parseFloat(req.query.slug) },
       });
       res.json(product);
       break;
