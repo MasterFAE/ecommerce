@@ -63,17 +63,24 @@ model VerificationToken {
   @@unique([identifier, token])
 }
 
+enum CATEGORY_TYPE {
+  MANUFACTURER
+  DEFAULT
+}
+
 model Category {
-  id             Int       @id @default(autoincrement())
+  id             Int           @id @default(autoincrement())
   name           String
-  product        Product[] @relation("category-product")
-  primaryProduct Product[] @relation("category-primary-product")
+  type           CATEGORY_TYPE @default(DEFAULT)
+  product        Product[]     @relation("category-product")
+  primaryProduct Product[]     @relation("category-primary-product")
 }
 
 model Product {
   id                Int          @id @default(autoincrement())
   name              String
   coverImage        String
+  description       String       @default("")
   detailedImage     String[]
   price             Float
   currency          String       @default("TL")
@@ -92,17 +99,19 @@ model Cart {
   user      User         @relation(fields: [userId], references: [id])
   userId    String       @id @unique
   item      ItemInCart[]
-  total     Int
+  total     Int          @default(0)
   updatedAt DateTime     @default(now()) @updatedAt
 }
 
 model ItemInCart {
   userId    String
   cart      Cart     @relation(fields: [userId], references: [userId])
-  itemId    Int      @unique
+  itemId    Int
   item      Product  @relation(fields: [itemId], references: [id])
   quantity  Int      @default(1)
   updatedAt DateTime @default(now()) @updatedAt
+
+  @@id([userId, itemId])
 }
 
 model Review {
@@ -115,13 +124,22 @@ model Review {
   @@id([userId, productId])
 }
 
+enum OrderStatus {
+  WAITING
+  ACCEPTED
+  CARGO
+  ON_THE_WAY
+  DELIVERED
+}
+
 model Order {
-  id        Int      @id @default(autoincrement())
+  id        Int         @id @default(autoincrement())
   userId    String
-  user      User     @relation(fields: [userId], references: [id])
+  user      User        @relation(fields: [userId], references: [id])
   productId Int
-  product   Product  @relation(fields: [productId], references: [id])
+  status    OrderStatus @default(WAITING)
+  product   Product     @relation(fields: [productId], references: [id])
   quantity  Int
-  createdAt DateTime @default(now())
-  updatedAt DateTime @default(now()) @updatedAt
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @default(now()) @updatedAt
 }

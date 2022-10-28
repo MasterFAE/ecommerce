@@ -4,6 +4,7 @@ import Head from "next/head";
 import { Router } from "next/router";
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
+import { getCartItems } from "../redux/cart/cartSlice";
 import { clearUser, getCurrentUser } from "../redux/user/userSlice";
 import Navbar from "./Navbar";
 
@@ -17,6 +18,7 @@ const Layout = (props: Props) => {
   useEffect(() => {
     if (session.status != "loading" && session.data) {
       dispatch(getCurrentUser());
+      dispatch(getCartItems());
     }
     if (session.status == "unauthenticated") dispatch(clearUser());
   }, [session]);
@@ -33,6 +35,11 @@ const Layout = (props: Props) => {
           {props.children}
         </div>
       </main>
+      <footer>
+        <div className="mt-4 h-32 w-full bg-neutral-900 text-center text-white">
+          footer
+        </div>
+      </footer>
     </div>
   );
 };

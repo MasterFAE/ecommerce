@@ -13,7 +13,7 @@ import systemMessageReducer from "./system-message/systemMessageSlice";
 
 const combinedReducers = combineReducers({
   user: userReducer,
-  // cart: cartReducer,
+  cart: cartReducer,
   // systemMessage: systemMessageReducer,
 });
 export type OurStore = ReturnType<typeof combinedReducers>;

@@ -10,6 +10,16 @@ import argon2 from "argon2";
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
   callbacks: {
+    async signIn({ user }) {
+      const cart = await prisma.cart.findUnique({
+        where: { userId: user.id },
+        select: { userId: true },
+      });
+      if (!cart) {
+        await prisma.cart.create({ data: { userId: user.id, total: 0 } });
+      }
+      return true;
+    },
     jwt({ token, user }) {
       if (token && user) {
         delete token?.password;
@@ -29,6 +39,7 @@ export const authOptions: NextAuthOptions = {
   session: {
     strategy: "jwt",
   },
+
   providers: [
     //Change discord redirect in with vercel link
     //https://discord.com/developers/applications
