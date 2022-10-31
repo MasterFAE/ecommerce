@@ -86,9 +86,9 @@ export const list = [
 const examples = async (req: NextApiRequest, res: NextApiResponse) => {
   switch (req.method) {
     case "GET":
-      const primaryCategoryId = 35; //for mainPage-1
+      const primaryCategoryId = 2; //for mainPage-1
       const products = await prisma.product.findMany({
-        where: { category: { some: { id: 35 } } },
+        where: { category: { some: { id: 3 } } },
         include: { primaryCategory: { select: { name: true, id: true } } },
         take: 20,
       });

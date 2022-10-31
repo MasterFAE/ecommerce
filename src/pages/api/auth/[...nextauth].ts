@@ -11,12 +11,19 @@ export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
   callbacks: {
     async signIn({ user }) {
+      console.log({ user });
       const cart = await prisma.cart.findUnique({
         where: { userId: user.id },
         select: { userId: true },
       });
       if (!cart) {
-        await prisma.cart.create({ data: { userId: user.id, total: 0 } });
+        try {
+          const _cart = await prisma.cart.create({
+            data: { userId: user.id, total: 0 },
+          });
+        } catch (error) {
+          return false;
+        }
       }
       return true;
     },

@@ -28,7 +28,7 @@ import fetcher from "../lib/fetcher";
 
 const Home: NextPage = () => {
   const { data, error } = useSWR("/api/product", fetcher);
-
+  console.log({ data });
   if (error) return <div>failed to load</div>;
   if (!data) return <div>loading...</div>;
 

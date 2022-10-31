@@ -30,7 +30,7 @@ const Layout = (props: Props) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Navbar />
-      <main className="min-w-screen  bg-white">
+      <main className="min-w-screen  min-h-screen bg-white">
         <div className="m-auto rounded-md border bg-neutral-50  px-2 shadow-md lg:w-3/4 lg:p-4 ">
           {props.children}
         </div>
