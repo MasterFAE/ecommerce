@@ -36,8 +36,52 @@ const Layout = (props: Props) => {
         </div>
       </main>
       <footer>
-        <div className="mt-4 h-32 w-full bg-neutral-900 text-center text-white">
-          footer
+        <div className="mt-4 h-full w-full bg-neutral-900">
+          <div className="m-auto flex h-full w-4/6 flex-row flex-wrap justify-between p-4">
+            <div id="-1-1">
+              <div className="text-lg text-neutral-200">Business</div>
+              <div className="flex flex-col items-start gap-y-1 text-sm text-neutral-500">
+                <div className="w-full cursor-pointer hover:underline">
+                  About Us
+                </div>
+                <div className="w-full cursor-pointer hover:underline">
+                  Help
+                </div>
+                <div className="w-full cursor-pointer hover:underline">FAQ</div>
+              </div>
+            </div>
+            <div id="-1-2">
+              <div className="text-lg text-neutral-200">Categories</div>
+              <div className="flex flex-col items-start gap-y-1 text-sm text-neutral-500">
+                <div className="w-full cursor-pointer hover:underline">
+                  Electronics
+                </div>
+                <div className="w-full cursor-pointer hover:underline">
+                  Housing
+                </div>
+                <div className="w-full cursor-pointer hover:underline">
+                  Clothing
+                </div>
+              </div>
+            </div>
+            <div id="-1-3">
+              <div className="text-lg text-neutral-200">Social Media</div>
+              <div className="flex flex-col items-start gap-y-1 text-sm text-neutral-500">
+                <div className="w-full cursor-pointer hover:underline">
+                  Instagram
+                </div>
+                <div className="w-full cursor-pointer hover:underline">
+                  Twitter
+                </div>
+                <div className="w-full cursor-pointer hover:underline">
+                  Facebook
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="w-full bg-black p-2 text-center text-sm text-neutral-300">
+            © 2022 fAemeister. All Rights Reserved.
+          </div>
         </div>
       </footer>
     </div>

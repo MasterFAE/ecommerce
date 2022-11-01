@@ -2,9 +2,14 @@ import { Product } from "@prisma/client";
 import React, { useState } from "react";
 import { FaShoppingCart, FaExclamation } from "react-icons/fa";
 import { MdDone } from "react-icons/md";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import product from "../pages/api/product";
-import { addItem, updateItemQuantity } from "../redux/cart/cartSlice";
+import {
+  addItem,
+  updateItemQuantity,
+  updateQuantity,
+} from "../redux/cart/cartSlice";
+import { storeType } from "../redux/store";
 import ADD_CART_OPERATION from "../types/addCartOperation";
 import ADDCARTSTATUS from "../types/addCartStatusType";
 
@@ -17,6 +22,7 @@ type Props = {
 const AddCartButton = (props: Props) => {
   const [status, setStatus] = useState(ADDCARTSTATUS.DEFAULT);
   const dispatch = useDispatch();
+  const items = useSelector((state: storeType) => state.cart.items);
 
   const renderStatus = (_status: ADDCARTSTATUS) => {
     switch (_status) {
@@ -77,18 +83,26 @@ const AddCartButton = (props: Props) => {
   const addToCart = async (e) => {
     statusChanger(ADDCARTSTATUS.LOADING);
     e.preventDefault();
+    let item = items.findIndex((x) => x.itemId === props.id);
+    if (item !== -1) {
+      dispatch(
+        updateQuantity({
+          itemId: props.id,
+          quantity: items[item].quantity + 1,
+        })
+      );
+      statusChanger(ADDCARTSTATUS.SUCCESSFUL);
+      return;
+    }
     const request = await fetch(`/api/cart/${props.id}`, { method: "POST" });
-    const data: { item: Product; operation: ADD_CART_OPERATION } =
-      await request.json();
+    const data = await request.json();
 
     if (!request.ok) {
       //throw system error
       statusChanger(ADDCARTSTATUS.FAILED);
       return;
     }
-    if (data.operation === ADD_CART_OPERATION.CREATE)
-      dispatch(addItem(data.item));
-    else dispatch(updateItemQuantity(data.item));
+    dispatch(addItem(data.item));
     statusChanger(ADDCARTSTATUS.SUCCESSFUL);
   };
   return (

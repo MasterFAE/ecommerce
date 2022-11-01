@@ -1,9 +1,7 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import { MdDone } from "react-icons/md";
-import {
-  FaStar,
-} from "react-icons/fa";
+import { FaStar } from "react-icons/fa";
 import Link from "next/link";
 import LikeButton from "./LikeButton";
 import { Category, Product } from "@prisma/client";
@@ -17,58 +15,63 @@ const ProductCard = (props: Props) => {
   const { product } = props;
 
   return (
-    <div className="flex flex-col gap-y-2 rounded-lg bg-white   p-2 pb-4 shadow-lg md:min-h-[400px] lg:min-h-[450px]">
-      <div className="h-fit pb-1">
-        <Image
-          src="https://picsum.photos/1920/1080"
-          width={"1080px"}
-          height={"1080px"}
-          quality={70}
-          className="h-full w-full rounded-lg object-cover"
-        />
+    <div className="flex min-h-[250px] flex-col rounded-lg border bg-white p-2 md:min-h-[300px] lg:min-h-[350px]">
+      <div className="h-fit w-fit">
+        <Link className="h-fit w-fit " href={`/product/${product.slug}`}>
+          <Image
+            src="https://picsum.photos/1920/1080"
+            width={"1080px"}
+            height={"1080px"}
+            quality={70}
+            className="cursor-pointer rounded-lg object-cover transition-transform hover:scale-95"
+          />
+        </Link>
       </div>
-      <div className="flex h-full w-full flex-col justify-between gap-y-1 divide-y divide-neutral-300 px-3">
+      <div className="flex h-fit w-full flex-col justify-between divide-neutral-300  px-3">
         {/* Item main info */}
-        <div>
+        <div className="">
           {/* Item name, image */}
-          <div className="font-semibold text-neutral-700">
-            <Link className="h-fit w-fit" href={`/product/${product.slug}`}>
-              <span className="cursor-pointer text-xl leading-none hover:underline">
+          <div className="w-full font-semibold text-neutral-700">
+            <Link className="h-fit w-full" href={`/product/${product.slug}`}>
+              <span className="w-full cursor-pointer text-base leading-none hover:underline md:text-xl">
                 {product.name}
               </span>
             </Link>
+            <div className="flex flex-col gap-y-1 md:mt-1  md:flex-row md:justify-between md:gap-0">
+              {/* Item category name */}
+              <h4 className="cursor-pointer text-sm font-light leading-tight text-neutral-500 hover:underline">
+                {product.primaryCategory.name}
+              </h4>
+              {/* Item review star */}
+              <div className="flex flex-row items-center">
+                <FaStar className="text-base text-yellow-500 md:text-lg" />
+                <FaStar className="text-base text-yellow-500 md:text-lg" />
+                <FaStar className="text-base text-yellow-500 md:text-lg" />
+                <FaStar className="text-base text-yellow-500 md:text-lg" />
+                <FaStar className="text-base text-neutral-300 md:text-lg" />
+                <h1 className="ml-1 cursor-pointer self-center text-xs font-medium text-neutral-500 hover:underline md:text-sm">
+                  +{product.reviews || 0}
+                </h1>
+              </div>
+              <h1 className="flex items-center gap-x-1 text-lg  font-medium text-neutral-800 md:hidden">
+                {product.price.toFixed(2)}
+                <h4 className="self-end text-base font-semibold">₺</h4>
+              </h1>
+            </div>
+
             {/* <div className="self-end rounded-full bg-red-500 p-1 px-2">
                 <h4 className="text-center text-[0.6rem] font-semibold text-neutral-50">
                   35% OFF
                 </h4>
               </div> */}
           </div>
-          {/* Item category name */}
-          <h4 className="cursor-pointer text-sm font-light leading-tight text-neutral-500 hover:underline">
-            {product.primaryCategory.name}
-          </h4>
-          {/* Item review star */}
-          <div className="mt-1 flex flex-row">
-            <FaStar size={18} className="text-yellow-500" />
-            <FaStar size={18} className="text-yellow-500" />
-            <FaStar size={18} className="text-yellow-500" />
-            <FaStar size={18} className="text-yellow-500" />
-            <FaStar size={18} className="text-neutral-300" />
-            <h1 className="ml-2 cursor-pointer self-center text-sm font-medium text-neutral-500 hover:underline">
-              +{product.reviews || 0}
-            </h1>
-          </div>
-          <p className=" mt-2 w-full overflow-hidden text-ellipsis text-sm text-neutral-700 line-clamp-3">
-            {product.description ||
-              "Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium unde sint beatae impedit. Eligendi commodi consequatur perspiciatis quia, qui error velit animi a tempore neque? Incidunt eveniet esse nesciunt quisquam!"}
-          </p>
         </div>
-        <div className="flex flex-col items-center justify-between pt-2 md:flex-row">
-          <h1 className="flex  items-center  gap-x-1 text-xl font-medium text-neutral-800">
+        <div className="mt-1 flex flex-col items-center justify-between md:flex-row">
+          <h1 className="hidden items-center gap-x-1 text-xl font-medium text-neutral-800 md:flex">
             {product.price.toFixed(2)}
             <h4 className="self-end text-base font-semibold">₺</h4>
           </h1>
-          <div className="mt-2 flex flex-row items-center justify-center  gap-x-8 md:mt-0 md:gap-x-2">
+          <div className="flex w-full flex-row items-center justify-between gap-x-8  md:mt-0 md:justify-end md:gap-x-2">
             <AddCartButton id={product.id} />
             <LikeButton size={16} />
           </div>

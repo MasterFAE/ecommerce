@@ -4,46 +4,47 @@ import ADD_CART_OPERATION from "../../../types/addCartOperation";
 
 const cartIdHandler = async (req: NextApiRequest, res: NextApiResponse) => {
   const session = await getServerAuthSession({ req, res });
+  if (!session || !session.user) return;
+
+  const userId = session.user?.id;
+  const itemId: number = +req.query.id;
 
   switch (req.method) {
-    case "GET":
+    case "DELETE":
+      const result = await prisma?.itemInCart.delete({
+        where: { userId_itemId: { userId, itemId } },
+      });
+      res.status(200).json(result);
+      break;
+    case "PATCH":
+      try {
+        const cartItem = await prisma?.itemInCart.update({
+          where: { userId_itemId: { userId, itemId } },
+          data: { quantity: req.body.quantity },
+        });
+        res.status(200).json(cartItem);
+      } catch (error) {
+        console.error({ error });
+        res.status(500).json({ error: "Something went wrong..." });
+      }
       break;
     case "POST":
-      if (!session || !session.user) return;
-      const userId = session.user?.id;
-      const itemId: number = +req.query.id;
       try {
         const product = await prisma?.product.findFirst({
           where: { id: itemId },
         });
         if (!product) res.status(404).send("Invalid item.");
-        const cartItem = await prisma?.itemInCart.findUnique({
-          where: { userId_itemId: { userId, itemId } },
+
+        const item = await prisma?.itemInCart.create({
+          data: {
+            cart: { connect: { userId } },
+            item: { connect: { id: itemId } },
+          },
+          include: { item: true },
         });
-        let item;
-        let operation;
-        if (cartItem) {
-          item = await prisma?.itemInCart.update({
-            where: { userId_itemId: { userId, itemId } },
-            // Send item count in body
-            data: { quantity: { increment: req.body.count || 1 } },
-            include: { item: true },
-          });
-          operation = ADD_CART_OPERATION.UPDATE;
-        } else {
-          item = await prisma?.itemInCart.create({
-            data: {
-              cart: { connect: { userId } },
-              item: { connect: { id: itemId } },
-            },
-            include: { item: true },
-          });
-          operation = ADD_CART_OPERATION.CREATE;
-        }
         res.json({
           message: "Added item to your cart",
-          item: item?.item,
-          operation,
+          item,
         });
       } catch (error) {
         console.error({ error });

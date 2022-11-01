@@ -91,6 +91,7 @@ model Product {
   inCart            ItemInCart[]
   review            Review[]
   order             Order[]
+  deal              Float        @default(0)
   createdAt         DateTime     @default(now())
   updatedAt         DateTime     @default(now()) @updatedAt
 }
