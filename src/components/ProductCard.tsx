@@ -39,9 +39,11 @@ const ProductCard = (props: Props) => {
             </Link>
             <div className="flex flex-col gap-y-1 md:mt-1  md:flex-row md:justify-between md:gap-0">
               {/* Item category name */}
-              <h4 className="cursor-pointer text-sm font-light leading-tight text-neutral-500 hover:underline">
-                {product.primaryCategory.name}
-              </h4>
+              <Link href={`/category/${product.primaryCategory.slug}`}>
+                <h4 className="cursor-pointer text-sm font-light leading-tight text-neutral-500 hover:underline">
+                  {product.primaryCategory.name}
+                </h4>
+              </Link>
               {/* Item review star */}
               <div className="flex flex-row items-center">
                 <FaStar className="text-base text-yellow-500 md:text-lg" />

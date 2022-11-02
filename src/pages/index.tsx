@@ -21,19 +21,25 @@ import CategoryCard from "../components/CategoryCard";
       - Cancel if type == WAITING
       - Review if type == DELIVERED
   * Register Page
-  * Login Page
-      - Redirect if session exists
+
   * Account Details Page
       - Change password
       - Change email
       - See adress info and change them
+
+  * Category Page
   * Mobile navbar and adjustments
 */
 
 const Home: NextPage = () => {
   const { data, error } = useSWR("/api/product", fetcher);
-  if (error) return <div>failed to load</div>;
-  if (!data) return <div>loading...</div>;
+  const { data: category_data, error: category_error } = useSWR(
+    "/api/category",
+    fetcher
+  );
+
+  if (error || category_error) return <div>failed to load</div>;
+  if (!data || !category_data) return <div>loading...</div>;
 
   return (
     <Layout>
@@ -50,17 +56,14 @@ const Home: NextPage = () => {
             className=" mt-2
         grid grid-cols-3 gap-2 pb-2  md:grid-cols-4 xl:grid-cols-5"
           >
-            <CategoryCard />
-            <CategoryCard />
-            <CategoryCard />
-            <CategoryCard />
-            <CategoryCard />
-            <CategoryCard />
+            {category_data.map((e) => (
+              <CategoryCard category={e} />
+            ))}
           </div>
         </div>
         <div className="mt-2">
           <h1 className="w-fit border-b border-neutral-300 pr-2 text-lg font-semibold text-neutral-700">
-            Popular Categories
+            Featured Products
           </h1>
 
           <div

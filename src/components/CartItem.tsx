@@ -38,6 +38,12 @@ const CartItem = (props: Props) => {
   };
 
   const changeQuantity = async () => {
+    if (!quantity) {
+      //Throw error quantity cannot be empty
+      alert("Quantity can not be empty.");
+      return;
+    }
+
     dispatch(updateQuantity({ itemId: data.itemId, quantity }));
     setQuantityButton(false);
   };
@@ -50,30 +56,38 @@ const CartItem = (props: Props) => {
     }
   };
 
+  const continueToPayment = async () => {
+    if (quantityButton) {
+      alert("Please confirm latest changes.");
+      return;
+    }
+  };
+
   return (
     <div className="flex flex-row gap-x-3 rounded-md border bg-white p-2 transition-colors hover:bg-neutral-100">
       <div className="h-20 w-20 rounded-lg bg-violet-300"></div>
       <div className=" grid w-full grid-cols-8">
-        <div className="col-span-6 flex h-full flex-col items-start justify-start ">
+        <div className="col-span-5 flex h-full flex-col items-start justify-start ">
           <h1 className="self-start text-lg font-semibold">{data.item.name}</h1>
         </div>
-        <div className="col-span-2 mr-1 flex h-full  w-full flex-col items-center justify-center gap-y-2">
-          <div className="flex w-full flex-row justify-end  gap-x-4">
-            <p className="text-lg font-medium ">
-              {data.item.price * quantity || 0}{" "}
-              {data.item.currency === "TL" ? "₺" : data.item.currency}
-            </p>
+        <div className="col-span-3 mr-1 flex h-full  w-full flex-col items-center justify-center gap-y-2">
+          <div className="flex h-fit w-full flex-row items-center justify-end gap-x-4">
+            <h1 className="w-fit text-base font-medium">
+              {!isNaN((data.item.price * quantity).toFixed(2))
+                ? (data.item.price * quantity).toFixed(2) + "₺"
+                : "0.00₺"}
+            </h1>
             <input
               id="quantity"
               type={"number"}
               value={quantity}
               onChange={onChangeQuantity}
-              className="block w-10 rounded-md border bg-neutral-200 text-center text-lg outline-neutral-200"
+              className="block h-fit w-10 rounded-md border bg-neutral-200 p-1 text-center text-lg outline-neutral-200"
             />
 
             <button
               onClick={_deleteItem}
-              className="rounded-lg bg-red-500 p-2 text-white hover:bg-red-600 focus:bg-red-600"
+              className="h-fit rounded-lg bg-red-500 p-3 text-white hover:bg-red-600 focus:bg-red-600"
             >
               <FaTrash size={14} />
             </button>

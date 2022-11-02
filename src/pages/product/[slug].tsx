@@ -1,6 +1,7 @@
 import { Category, Product } from "@prisma/client";
 import { NextPageContext } from "next";
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 import { FaStar } from "react-icons/fa";
 import AddCartButton from "../../components/AddCartButton";
@@ -31,10 +32,12 @@ const ProductPage = (props: Props) => {
               <span className="cursor-pointer text-xl leading-none hover:underline">
                 {data.name}
               </span>
-              <h4 className="cursor-pointer text-sm font-light leading-tight text-neutral-500 hover:underline">
-                {data.primaryCategory.name}
-              </h4>
-              <div className="pt-4 text-sm font-light text-neutral-700 line-clamp-6">
+              <Link href={`/category/${data.primaryCategory.slug}`}>
+                <h4 className="cursor-pointer text-sm font-light leading-tight text-neutral-500 hover:underline">
+                  {data.primaryCategory.name}
+                </h4>
+              </Link>
+              <div className="mt-2 border-t pt-2 text-sm font-light text-neutral-700 line-clamp-6">
                 <p>
                   Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex ea
                   cupiditate ullam veritatis. Tempora repudiandae incidunt

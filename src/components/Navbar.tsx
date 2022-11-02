@@ -17,7 +17,7 @@ const Navbar = (props: Props) => {
   return (
     <div>
       <div className="invisible hidden h-24 w-[100%] md:block"></div>
-      <header className="fixed top-0 left-0 z-20 hidden w-full border-b border-neutral-200 bg-violet-400 md:block">
+      <header className="fixed top-0 left-0 z-20 hidden w-full border-b border-violet-300 bg-violet-400 md:block">
         <div className="m-auto grid h-full w-screen grid-cols-12  items-center bg-violet-400  py-6">
           <Link href={"/"}>
             <div className="col-span-2 col-start-3 cursor-pointer ">LOGO</div>
@@ -52,7 +52,7 @@ const Navbar = (props: Props) => {
                     <h1 className="hidden lg:block">Account</h1>
                     <FaUserAlt className="block text-neutral-700 lg:hidden" />
                   </span>
-                  <div className="text-md absolute  top-full hidden w-full items-center divide-x rounded-lg rounded-t-none bg-white text-center transition-all  group-focus-within:block group-hover:block group-focus:block group-aria-pressed:block ">
+                  <div className="lg:text-md absolute top-full  hidden w-full items-center divide-x rounded-lg rounded-t-none bg-white text-center text-sm transition-all  group-focus-within:block group-hover:block group-focus:block group-aria-pressed:block ">
                     <ul>
                       <li className="cursor-pointer  border-b py-2 hover:bg-neutral-50 hover:text-violet-700 focus:text-violet-700">
                         Account

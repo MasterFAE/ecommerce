@@ -10,7 +10,9 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     case "GET":
       const product = await prisma.product.findFirst({
         where: { slug: req.query.slug },
-        include: { primaryCategory: { select: { name: true, id: true } } },
+        include: {
+          primaryCategory: { select: { name: true, id: true, slug: true } },
+        },
       });
       res.json(product);
       break;

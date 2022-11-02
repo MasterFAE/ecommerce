@@ -71,6 +71,7 @@ enum CATEGORY_TYPE {
 model Category {
   id             Int           @id @default(autoincrement())
   name           String
+  slug          String      @default("")
   type           CATEGORY_TYPE @default(DEFAULT)
   product        Product[]     @relation("category-product")
   primaryProduct Product[]     @relation("category-primary-product")

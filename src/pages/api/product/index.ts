@@ -88,8 +88,10 @@ const examples = async (req: NextApiRequest, res: NextApiResponse) => {
     case "GET":
       const primaryCategoryId = 2; //for mainPage-1
       const products = await prisma.product.findMany({
-        where: { category: { some: { id: 35 } } },
-        include: { primaryCategory: { select: { name: true, id: true } } },
+        where: { category: { some: { id: 2 } } },
+        include: {
+          primaryCategory: { select: { name: true, id: true, slug: true } },
+        },
         take: 20,
       });
       res.json(products);
