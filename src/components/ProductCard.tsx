@@ -55,9 +55,8 @@ const ProductCard = (props: Props) => {
                   +{product.reviews || 0}
                 </h1>
               </div>
-              <h1 className="flex items-center gap-x-1 text-lg  font-medium text-neutral-800 md:hidden">
-                {product.price.toFixed(2)}
-                <h4 className="self-end text-base font-semibold">₺</h4>
+              <h1 className="price-tag flex items-center gap-x-1 md:hidden">
+                {product.price.toFixed(2)} ₺
               </h1>
             </div>
 
@@ -69,9 +68,8 @@ const ProductCard = (props: Props) => {
           </div>
         </div>
         <div className="mt-1 flex flex-col items-center justify-between md:flex-row">
-          <h1 className="hidden items-center gap-x-1 text-xl font-medium text-neutral-800 md:flex">
-            {product.price.toFixed(2)}
-            <h4 className="self-end text-base font-semibold">₺</h4>
+          <h1 className="price-tag hidden w-full items-center gap-x-1 text-lg md:flex">
+            {product.price.toFixed(2)} ₺
           </h1>
           <div className="flex w-full flex-row items-center justify-between gap-x-8  md:mt-0 md:justify-end md:gap-x-2">
             <AddCartButton id={product.id} />

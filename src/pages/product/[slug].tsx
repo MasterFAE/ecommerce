@@ -55,9 +55,10 @@ const ProductPage = (props: Props) => {
               </div>
             </div>
             <div className="flex flex-row justify-between px-2 pt-4">
-              <div className="flex flex-row items-center gap-x-1 text-2xl font-medium text-neutral-800">
-                <h1>{data.price.toFixed(2)}</h1>
-                <h4 className="self-end text-base font-semibold">₺</h4>
+              <div className="flex flex-row items-center gap-x-1">
+                <h1 className="price-tag  text-2xl">
+                  {data.price.toFixed(2)} ₺
+                </h1>
               </div>
               <div className="flex flex-row items-center">
                 <FaStar size={18} className="text-yellow-500" />

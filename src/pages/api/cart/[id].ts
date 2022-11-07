@@ -37,7 +37,9 @@ const cartIdHandler = async (req: NextApiRequest, res: NextApiResponse) => {
 
         const item = await prisma?.itemInCart.create({
           data: {
-            cart: { connect: { userId } },
+            cart: {
+              connectOrCreate: { where: { userId }, create: { userId } },
+            },
             item: { connect: { id: itemId } },
           },
           include: { item: true },

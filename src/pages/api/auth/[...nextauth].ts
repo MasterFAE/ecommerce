@@ -10,23 +10,19 @@ import argon2 from "argon2";
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
   callbacks: {
-    async signIn({ user }) {
-      console.log({ user });
-      const cart = await prisma.cart.findUnique({
-        where: { userId: user.id },
-        select: { userId: true },
-      });
-      if (!cart) {
-        try {
-          const _cart = await prisma.cart.create({
-            data: { userId: user.id, total: 0 },
-          });
-        } catch (error) {
-          return false;
-        }
-      }
-      return true;
-    },
+    // async signIn({ user }) {
+    //   if (!cart) {
+    //     try {
+    //       const _cart = await prisma.cart.create({
+    //         data: { userId: user.id, total: 0 },
+    //       });
+    //     } catch (error) {
+    //       console.log({ error });
+    //       return true;
+    //     }
+    //   }
+    //   return true;
+    // },
     jwt({ token, user }) {
       if (token && user) {
         delete token?.password;

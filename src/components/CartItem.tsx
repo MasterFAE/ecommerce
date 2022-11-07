@@ -72,7 +72,7 @@ const CartItem = (props: Props) => {
         </div>
         <div className="col-span-3 mr-1 flex h-full  w-full flex-col items-center justify-center gap-y-2">
           <div className="flex h-fit w-full flex-row items-center justify-end gap-x-4">
-            <h1 className="w-fit text-base font-medium">
+            <h1 className="price-tag w-fit">
               {!isNaN((data.item.price * quantity).toFixed(2))
                 ? (data.item.price * quantity).toFixed(2) + "₺"
                 : "0.00₺"}

@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer components {
+  .price-tag {
+    @apply text-lg font-semibold text-neutral-800;
+  }
+}
+
 body {
   margin: 0;
   width: 100%;
