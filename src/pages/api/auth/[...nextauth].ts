@@ -7,22 +7,25 @@ import { prisma } from "../../../server/db/client";
 import { env } from "../../../env/server.mjs";
 import Credentials from "next-auth/providers/credentials";
 import argon2 from "argon2";
+import { signOut } from "next-auth/react";
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
   callbacks: {
-    // async signIn({ user }) {
-    //   if (!cart) {
-    //     try {
-    //       const _cart = await prisma.cart.create({
-    //         data: { userId: user.id, total: 0 },
-    //       });
-    //     } catch (error) {
-    //       console.log({ error });
-    //       return true;
-    //     }
-    //   }
-    //   return true;
-    // },
+    async signIn({ user }) {
+      const cart = await prisma.cart.findUnique({ where: { userId: user.id } });
+      if (!cart) {
+        try {
+          const _cart = await prisma.cart.create({
+            data: { userId: user.id, total: 0 },
+          });
+        } catch (error) {
+          console.log(" ERROR HANDLED");
+          console.log({ error });
+          return false;
+        }
+      }
+      return true;
+    },
     jwt({ token, user }) {
       if (token && user) {
         delete token?.password;
@@ -75,9 +78,10 @@ export const authOptions: NextAuthOptions = {
     }),
     // ...add more providers here
   ],
-  // pages: {
-  //   // signIn: "/auth/login",
-  // },
+  pages: {
+    signIn: "/login",
+    error: "/login",
+  },
 };
 
 export default NextAuth(authOptions);

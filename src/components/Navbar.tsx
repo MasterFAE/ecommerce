@@ -1,6 +1,7 @@
 import { Category, CATEGORY_TYPE } from "@prisma/client";
 import { signOut } from "next-auth/react";
 import Link from "next/link";
+import Router from "next/router";
 import React, { useEffect, useState } from "react";
 import { FaShoppingCart, FaUserAlt } from "react-icons/fa";
 import { ImSearch } from "react-icons/im";
@@ -9,7 +10,6 @@ import useSWR from "swr";
 import fetcher from "../lib/fetcher";
 import { storeType } from "../redux/store";
 import NavbarSearchItem from "./NavbarSearchItem";
-import PriceTag from "./PriceTag";
 type Props = {};
 
 const Navbar = (props: Props) => {

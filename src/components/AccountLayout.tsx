@@ -1,4 +1,6 @@
+import { useSession } from "next-auth/react";
 import Link from "next/link";
+import Router from "next/router";
 import React from "react";
 import Layout from "./Layout";
 
@@ -7,6 +9,13 @@ type Props = {
 };
 
 const AccountLayout = (props: Props) => {
+  const { data: session, status } = useSession();
+
+  if (status === "loading") return <h1>Account Loading</h1>;
+  if (status === "unauthenticated") {
+    Router.push("/login");
+    return;
+  }
   return (
     <Layout>
       <div className="grid h-[75vh] grid-cols-8 gap-x-4">

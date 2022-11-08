@@ -53,6 +53,7 @@ model User {
   cart          Cart?
   review        Review[]
   order         Order[]
+  address       Address[]
 }
 
 model VerificationToken {
@@ -120,12 +121,17 @@ model ItemInCart {
 
 model Review {
   userId    String
-  user      User    @relation(fields: [userId], references: [id])
+  user      User     @relation(fields: [userId], references: [id])
   productId Int
-  product   Product @relation(fields: [productId], references: [id])
+  product   Product  @relation(fields: [productId], references: [id])
   score     Int
+  orderId   Int
+  order     Order    @relation(fields: [orderId], references: [id])
+  comment   String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
 
-  @@id([userId, productId])
+  @@id([userId, orderId])
 }
 
 enum OrderStatus {
@@ -146,4 +152,30 @@ model Order {
   quantity  Int
   createdAt DateTime    @default(now())
   updatedAt DateTime    @default(now()) @updatedAt
+  Review    Review[]
+}
+
+enum AddressType {
+  PERSONAL
+  CORPORATE
+}
+
+model Address {
+  id                 Int         @id @default(autoincrement())
+  name               String
+  userName           String
+  userSurname        String
+  userId             String
+  user               User        @relation(fields: [userId], references: [id])
+  neighbourHoodName  String
+  districtName       String
+  cityName           String
+  country            String
+  identityNo         String
+  phone_number       String
+  type               AddressType
+  addressDescription String?
+  isCurrent          Boolean     @default(false)
+  createdAt          DateTime    @default(now())
+  updatedAt          DateTime    @default(now()) @updatedAt
 }
