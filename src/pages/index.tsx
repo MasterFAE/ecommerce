@@ -4,6 +4,7 @@ import Layout from "../components/Layout";
 import useSWR from "swr";
 import fetcher from "../lib/fetcher";
 import CategoryCard from "../components/CategoryCard";
+import HeroSection from "../components/HeroSection";
 /*
   TODO:
   * Footer:
@@ -45,7 +46,7 @@ const Home: NextPage = () => {
     <Layout>
       <div className="px-2">
         <div className="min-h-[450px] w-full">
-          <div className="min-h-[450px] w-full bg-violet-600 bg-opacity-30"></div>
+          <HeroSection />
         </div>
         <div className="mt-2">
           <h1 className="w-fit border-b border-neutral-300 pr-2 text-lg font-semibold text-neutral-700">

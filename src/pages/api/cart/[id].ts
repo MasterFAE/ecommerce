@@ -7,6 +7,7 @@ const cartIdHandler = async (req: NextApiRequest, res: NextApiResponse) => {
   if (!session || !session.user) return;
 
   const userId = session.user?.id;
+
   const itemId: number = +req.query.id;
 
   switch (req.method) {

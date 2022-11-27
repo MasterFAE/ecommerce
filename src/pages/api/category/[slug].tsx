@@ -5,7 +5,10 @@ const categoryIdHandler = async (req: NextApiRequest, res: NextApiResponse) => {
     case "GET":
       const category = await prisma?.category.findFirst({
         where: { slug: req.query.slug },
-        include: { product: { take: 50 } },
+        include: {
+          primaryProduct: { include: { _count: true }, take: 30 },
+          product: { include: { _count: true }, take: 10 },
+        },
       });
       res.json(category);
       break;

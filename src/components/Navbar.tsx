@@ -32,7 +32,7 @@ const Navbar = (props: Props) => {
   return (
     <div>
       <div className="invisible hidden h-[9.5rem] w-[100%] md:block"></div>
-      <header className="fixed top-0 left-0 z-20 hidden w-full border-b border-neutral-200 bg-white md:block">
+      <header className="fixed top-0 left-0 z-20 hidden w-full border-b border-neutral-600 bg-white md:block">
         <div className="m-auto grid h-full w-screen grid-cols-12  items-center py-6">
           <Link href={"/"}>
             <div className="col-span-2 col-start-3 cursor-pointer ">LOGO</div>
@@ -59,7 +59,9 @@ const Navbar = (props: Props) => {
             {/* {searchItems.length > 0 && ( */}
             <div className="absolute hidden max-h-[35vh] w-full flex-col divide-y overflow-y-auto rounded-lg border bg-white group-focus-within:flex">
               {searchItems.length > 0 ? (
-                searchItems.map((e) => <NavbarSearchItem product={e} />)
+                searchItems.map((e) => (
+                  <NavbarSearchItem key={e.slug} product={e} />
+                ))
               ) : (
                 <div className="w-full bg-white p-2 text-lg font-normal text-neutral-800">
                   <h1>What can I find for you?</h1>
@@ -122,7 +124,7 @@ const Navbar = (props: Props) => {
             ) : (
               <>
                 {category_data.map((e: Category) => (
-                  <Link href={`/category/${e.slug}`}>
+                  <Link href={`/category/${e.slug}`} key={e.slug}>
                     <h1 className="cursor-pointer text-base text-white transition-colors hover:text-neutral-200">
                       {e.name}
                     </h1>

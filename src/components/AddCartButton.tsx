@@ -17,6 +17,7 @@ type Props = {
   id: number;
   quantity?: number | 1;
   text?: string;
+  size?: string;
 };
 
 const AddCartButton = (props: Props) => {
@@ -28,12 +29,21 @@ const AddCartButton = (props: Props) => {
     switch (_status) {
       case ADDCARTSTATUS.DEFAULT:
         if (props.text) {
-          return (
-            <div className="flex flex-row items-center justify-center gap-x-2 px-2 font-medium">
-              <FaShoppingCart size={16}></FaShoppingCart>
-              <h6 className="text-base">{props.text && props.text}</h6>
-            </div>
-          );
+          if (props.size === "sm") {
+            return (
+              <div className="flex flex-row items-center justify-center gap-x-1 px-1 font-medium">
+                <FaShoppingCart size={14}></FaShoppingCart>
+                <h6 className="text-xs">{props.text && props.text}</h6>
+              </div>
+            );
+          } else {
+            return (
+              <div className="flex flex-row items-center justify-center gap-x-2 px-2 font-medium">
+                <FaShoppingCart size={16}></FaShoppingCart>
+                <h6 className="text-sm">{props.text && props.text}</h6>
+              </div>
+            );
+          }
         } else {
           return <FaShoppingCart size={16}></FaShoppingCart>;
         }
@@ -109,7 +119,7 @@ const AddCartButton = (props: Props) => {
     <button
       disabled={status === ADDCARTSTATUS.LOADING}
       onClick={addToCart}
-      className="rounded-full bg-blue-500 p-2 text-white transition-all hover:bg-blue-700 hover:text-neutral-200 focus:ring"
+      className="rounded-full  bg-blue-500 p-2 text-white transition-all hover:bg-blue-700 hover:text-neutral-200 focus:ring"
     >
       {renderStatus(status)}
     </button>

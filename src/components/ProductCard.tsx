@@ -13,7 +13,6 @@ type Props = {
 
 const ProductCard = (props: Props) => {
   const { product } = props;
-
   return (
     <div className="flex min-h-[250px] flex-col rounded-lg border bg-white p-2 md:min-h-[300px] lg:min-h-[350px]">
       <div className="h-fit w-fit">
@@ -27,7 +26,7 @@ const ProductCard = (props: Props) => {
           />
         </Link>
       </div>
-      <div className="flex h-fit w-full flex-col justify-between divide-neutral-300  px-3">
+      <div className="flex h-full w-full flex-col justify-between divide-neutral-300  px-3">
         {/* Item main info */}
         <div className="">
           {/* Item name, image */}
@@ -52,7 +51,7 @@ const ProductCard = (props: Props) => {
                 <FaStar className="text-base text-yellow-500 md:text-lg" />
                 <FaStar className="text-base text-neutral-300 md:text-lg" />
                 <h1 className="ml-1 cursor-pointer self-center text-xs font-medium text-neutral-500 hover:underline md:text-sm">
-                  +{product.reviews || 0}
+                  +{product._count.review}
                 </h1>
               </div>
               <h1 className="price-tag flex items-center gap-x-1 md:hidden">
@@ -67,13 +66,13 @@ const ProductCard = (props: Props) => {
               </div> */}
           </div>
         </div>
-        <div className="mt-1 flex flex-col items-center justify-between md:flex-row">
+        <div className="mt-2 flex flex-col items-center justify-between md:flex-row">
           <h1 className="price-tag hidden w-full items-center gap-x-1 text-lg md:flex">
             {product.price.toFixed(2)} ₺
           </h1>
-          <div className="flex w-full flex-row items-center justify-between gap-x-8  md:mt-0 md:justify-end md:gap-x-2">
-            <AddCartButton id={product.id} />
-            <LikeButton size={16} />
+          <div className="flex w-full flex-row items-center justify-center gap-x-8 self-end  md:mt-0 md:justify-end md:gap-x-2">
+            <AddCartButton text="Add to Cart" size="sm" id={product.id} />
+            {/* <LikeButton size={16} /> */}
           </div>
         </div>
         {/* <div className="self-center rounded-full bg-red-500 p-1 px-2">

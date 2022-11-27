@@ -12,6 +12,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         where: { slug: req.query.slug },
         include: {
           primaryCategory: { select: { name: true, id: true, slug: true } },
+          _count: true,
         },
       });
       res.json(product);

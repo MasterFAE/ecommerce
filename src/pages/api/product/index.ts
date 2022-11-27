@@ -90,6 +90,7 @@ const examples = async (req: NextApiRequest, res: NextApiResponse) => {
         where: { category: { some: { id: 6 } } },
         include: {
           primaryCategory: { select: { name: true, id: true, slug: true } },
+          _count: true,
         },
         take: 20,
       });

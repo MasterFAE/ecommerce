@@ -14,7 +14,7 @@ const AccountLayout = (props: Props) => {
   if (status === "loading") return <h1>Account Loading</h1>;
   if (status === "unauthenticated") {
     Router.push("/login");
-    return;
+    return <></>;
   }
   return (
     <Layout>

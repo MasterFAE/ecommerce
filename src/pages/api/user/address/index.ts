@@ -7,7 +7,6 @@ const AddressHandler = async (req: NextApiRequest, res: NextApiResponse) => {
     res.status(401).send("Unauthorized");
     return;
   }
-
   const userId = session.user.id;
   switch (req.method) {
     case "GET":
@@ -51,3 +50,5 @@ const AddressHandler = async (req: NextApiRequest, res: NextApiResponse) => {
       break;
   }
 };
+
+export default AddressHandler;

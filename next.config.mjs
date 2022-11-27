@@ -17,7 +17,7 @@ export default defineNextConfig({
   reactStrictMode: true,
   swcMinify: true,
   images: {
-    domains: ["picsum.photos"]
+    domains: ["picsum.photos", "images.hepsiburada.net"],
   },
   /** Next.js i18n docs:
    * @see https://nextjs.org/docs/advanced-features/i18n-routing

@@ -1,8 +1,5 @@
-import { ItemInCart, Product } from "@prisma/client";
 import React, { useState } from "react";
-import { FaTrash } from "react-icons/fa";
 import { useSelector } from "react-redux";
-import useSWR from "swr";
 import CartItem from "../components/CartItem";
 import Layout from "../components/Layout";
 import { CartItemResponse } from "../redux/cart/cartSlice";

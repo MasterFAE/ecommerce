@@ -39,18 +39,8 @@ const ProductPage = (props: Props) => {
               </Link>
               <div className="mt-2 border-t pt-2 text-sm font-light text-neutral-700 line-clamp-6">
                 <p>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex ea
-                  cupiditate ullam veritatis. Tempora repudiandae incidunt
-                  laudantium? Eligendi in eaque facere maiores animi debitis,
-                  expedita officiis, vel repellendus aliquam quod. Lorem ipsum
-                  dolor sit amet consectetur adipisicing elit. Ex ea cupiditate
-                  ullam veritatis. Tempora repudiandae incidunt laudantium?
-                  Eligendi in eaque facere maiores animi debitis, expedita
-                  officiis, vel repellendus aliquam quod. dolor sit amet
-                  consectetur adipisicing elit. Ex ea cupiditate ullam
-                  veritatis. Tempora repudiandae incidunt laudantium? Eligendi
-                  in eaque facere maiores animi debitis, expedita officiis, vel
-                  repellendus aliquam quod.
+                  {data.description ||
+                    "No description provided for this product."}
                 </p>
               </div>
             </div>
@@ -67,14 +57,14 @@ const ProductPage = (props: Props) => {
                 <FaStar size={18} className="text-yellow-500" />
                 <FaStar size={18} className="text-neutral-300" />
                 <h1 className="ml-2 cursor-pointer text-center text-sm font-medium text-neutral-500 hover:underline">
-                  +{data.reviews || 0}
+                  +{data._count.review}
                 </h1>
               </div>
             </div>
           </div>
           <div className="flex flex-row justify-between gap-x-2 p-2">
             <AddCartButton text="Add to Cart" id={data.id} />
-            <LikeButton />
+            {/* <LikeButton /> */}
           </div>
         </div>
       </div>
@@ -93,7 +83,7 @@ export async function getServerSideProps(context: NextPageContext) {
   );
 
   return {
-    props: { data }, // will be passed to the page component as props
+    props: { data },
   };
 }
 export default ProductPage;
