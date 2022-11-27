@@ -18,6 +18,8 @@ const userHandler = async (req: NextApiRequest, res: NextApiResponse) => {
 
       break;
 
+    case "POST":
+
     default:
       break;
   }

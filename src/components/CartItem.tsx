@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { FaTrash } from "react-icons/fa";
 import { MdDone } from "react-icons/md";
@@ -27,6 +28,8 @@ const CartItem = (props: Props) => {
     if (value < 0) return;
     else if (value === 0) {
       _deleteItem();
+      return;
+    } else if (!value) {
       return;
     }
     setQuantity(value);
@@ -67,27 +70,48 @@ const CartItem = (props: Props) => {
     <div className="flex flex-row gap-x-3 rounded-md border bg-white p-2 transition-colors hover:bg-neutral-100">
       <div className="h-20 w-20 rounded-lg bg-violet-300"></div>
       <div className=" grid w-full grid-cols-8">
-        <div className="col-span-5 flex h-full flex-col items-start justify-start ">
-          <h1 className="self-start text-lg font-semibold">{data.item.name}</h1>
+        <div className="col-span-5 my-2 flex h-full flex-col items-start justify-start ">
+          <Link href={"/product/" + data.item.slug}>
+            <h1 className="cursor-pointer self-start text-lg font-light hover:underline">
+              {data.item.name}
+            </h1>
+          </Link>
+          <h1 className="price-tag w-fit">
+            {!isNaN((data.item.price * quantity).toFixed(2))
+              ? (data.item.price * quantity).toFixed(2) + "₺"
+              : "0.00₺"}
+          </h1>
         </div>
         <div className="col-span-3 mr-1 flex h-full  w-full flex-col items-center justify-center gap-y-2">
-          <div className="flex h-fit w-full flex-row items-center justify-end gap-x-4">
-            <h1 className="price-tag w-fit">
-              {!isNaN((data.item.price * quantity).toFixed(2))
-                ? (data.item.price * quantity).toFixed(2) + "₺"
-                : "0.00₺"}
-            </h1>
-            <input
-              id="quantity"
-              type={"number"}
-              value={quantity}
-              onChange={onChangeQuantity}
-              className="block h-fit w-10 rounded-md border bg-neutral-200 p-1 text-center text-lg outline-neutral-200"
-            />
+          <div className="flex h-fit w-full flex-row items-center justify-end gap-x-2 lg:mr-2 lg:gap-x-4">
+            <div className="flex flex-row items-center gap-x-1">
+              <button
+                onClick={() =>
+                  onChangeQuantity({ target: { value: quantity - 1 } })
+                }
+                className="h-full w-6 rounded-lg bg-neutral-200  text-center text-lg font-medium text-gray-900 transition-colors hover:bg-neutral-400 focus:bg-neutral-400 "
+              >
+                -
+              </button>
+              <input
+                id="quantity"
+                value={quantity}
+                onChange={onChangeQuantity}
+                className="block h-fit w-8 rounded-md border bg-neutral-200 text-center text-lg outline-neutral-200"
+              />
+              <button
+                onClick={() =>
+                  onChangeQuantity({ target: { value: quantity + 1 } })
+                }
+                className="h-full w-6 rounded-lg bg-neutral-200  text-center text-lg font-medium text-gray-900 transition-colors hover:bg-neutral-400 focus:bg-neutral-400 "
+              >
+                +
+              </button>
+            </div>
 
             <button
               onClick={_deleteItem}
-              className="h-fit rounded-lg bg-red-500 p-3 text-white hover:bg-red-600 focus:bg-red-600"
+              className="h-fit rounded-lg bg-red-500 p-2 text-white hover:bg-red-600 focus:bg-red-600"
             >
               <FaTrash size={14} />
             </button>
@@ -95,9 +119,9 @@ const CartItem = (props: Props) => {
           {quantityButton && (
             <button
               onClick={changeQuantity}
-              className="flex w-full flex-row justify-center rounded-lg bg-blue-500 p-1 text-sm text-white transition-all hover:bg-blue-600 focus:bg-blue-600"
+              className="flex w-40 flex-row justify-center self-end rounded-lg bg-blue-500 p-1 text-sm text-white transition-all hover:bg-blue-600 focus:bg-blue-600"
             >
-              Change
+              Change Quantity
             </button>
           )}
         </div>

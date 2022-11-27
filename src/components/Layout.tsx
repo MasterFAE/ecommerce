@@ -6,6 +6,7 @@ import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { getCartItems } from "../redux/cart/cartSlice";
 import { clearUser, getCurrentUser } from "../redux/user/userSlice";
+import MobileNavbar from "./MobileNavbar";
 import Navbar from "./Navbar";
 
 type Props = {
@@ -30,6 +31,7 @@ const Layout = (props: Props) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Navbar />
+      <MobileNavbar />
       <main className="min-w-screen  min-h-screen bg-white">
         <div className="m-auto min-h-[70vh] rounded-md border bg-neutral-50  px-2 py-2 shadow-md lg:w-3/4 lg:p-4">
           {props.children}

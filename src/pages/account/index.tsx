@@ -1,3 +1,4 @@
+import { signOut } from "next-auth/react";
 import React from "react";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import { useSelector } from "react-redux";
@@ -22,21 +23,27 @@ const Details = (props: Props) => {
           <button className="rounded-lg bg-blue-500 py-1 text-white hover:bg-blue-600 focus:bg-blue-600">
             Edit
           </button>
+          <button
+            onClick={() => signOut()}
+            className="rounded-lg bg-red-500 py-1 text-white hover:bg-red-600 focus:bg-red-600"
+          >
+            Log out
+          </button>
         </div>
-        <div className="grid grid-cols-12 gap-y-4">
-          <div className="col-span-2">
+        <div className="grid grid-cols-2 gap-y-4">
+          <div className="col-span-1">
             <h1 className="text-sm text-neutral-600">First Name</h1>
             <h4 className="text-lg text-neutral-900">Sinan</h4>
           </div>
-          <div className="col-span-2">
+          <div className="col-span-1 col-start-2">
             <h1 className="text-sm text-neutral-600">Last Name</h1>
             <h4 className="text-lg text-neutral-900">Gürcan</h4>
           </div>
-          <div className="col-span-4 row-start-2">
+          <div className="col-span-2 row-start-2">
             <h1 className="text-sm text-neutral-600">Email</h1>
             <h4 className="text-lg text-neutral-900">s*********@*****.com</h4>
           </div>
-          <div className="col-span-4 row-start-3">
+          <div className="col-span-2 row-start-3">
             <h1 className="text-sm text-neutral-600">Phone Number</h1>
             <h4 className="text-lg text-neutral-900">542*****55</h4>
           </div>

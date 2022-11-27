@@ -1,7 +1,8 @@
-import { useSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 import Router from "next/router";
 import React from "react";
+import { FaBars } from "react-icons/fa";
 import Layout from "./Layout";
 
 type Props = {
@@ -18,8 +19,8 @@ const AccountLayout = (props: Props) => {
   }
   return (
     <Layout>
-      <div className="grid h-[75vh] grid-cols-8 gap-x-4">
-        <div className="col-span-2 h-full border-r">
+      <div className="grid h-[100vh]  grid-cols-8 gap-x-4">
+        <div className="col-span-2 hidden h-full border-r md:flex">
           <div className="flex w-full list-none flex-col gap-y-1 p-4">
             <div className="w-full border-l-neutral-400">
               <h1 className="w-fit cursor-pointer text-lg font-medium text-neutral-800 transition-all">
@@ -44,7 +45,12 @@ const AccountLayout = (props: Props) => {
                 <Link href="/account/tickets">
                   <li className="cursor-pointer hover:underline">Tickets</li>
                 </Link>
-
+                <li
+                  onClick={() => signOut()}
+                  className="cursor-pointer font-normal text-red-600 transition-all hover:text-red-700"
+                >
+                  Log off
+                </li>
                 <li className="cursor-pointer font-normal text-red-600 transition-all hover:text-red-700">
                   Delete Account
                 </li>
@@ -52,8 +58,8 @@ const AccountLayout = (props: Props) => {
             </div>
           </div>
         </div>
-        <div className="col-span-6 rounded-md border bg-white p-8">
-          {props.children}
+        <div className="col-span-8 rounded-md border bg-white sm:col-span-6">
+          <div className="p-4 sm:p-8">{props.children}</div>
         </div>
       </div>
     </Layout>

@@ -69,11 +69,11 @@ export const authOptions: NextAuthOptions = {
           email: string;
           password: string;
         };
-        const user = await prisma.user.findFirst({ where: { name: email } });
+        const user = await prisma.user.findFirst({ where: { email } });
         if (!user) return null;
         const result = await argon2.verify(user.password, password);
         if (!result) return null;
-        return { id: user.id, email: user.email, name: user.name };
+        return { id: user.id, email: user.email };
       },
     }),
     // ...add more providers here

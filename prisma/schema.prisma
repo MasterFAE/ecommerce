@@ -43,7 +43,9 @@ model Session {
 
 model User {
   id            String    @id @default(cuid())
-  name          String?
+  firstName     String?
+  lastName      String?
+  phoneNumber   String?   @unique
   password      String?
   email         String?   @unique
   emailVerified DateTime?
@@ -101,7 +103,7 @@ model Product {
 }
 
 model Cart {
-  user      User         @relation(fields: [userId], references: [id])
+  user      User         @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId    String       @id @unique
   item      ItemInCart[]
   total     Int          @default(0)
@@ -110,7 +112,7 @@ model Cart {
 
 model ItemInCart {
   userId    String
-  cart      Cart     @relation(fields: [userId], references: [userId])
+  cart      Cart     @relation(fields: [userId], references: [userId], onDelete: Cascade)
   itemId    Int
   item      Product  @relation(fields: [itemId], references: [id])
   quantity  Int      @default(1)

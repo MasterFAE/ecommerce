@@ -83,9 +83,11 @@ const Navbar = (props: Props) => {
                   </Link>
                   <div className="text-md absolute  top-full hidden w-full items-center divide-x rounded-lg rounded-t-none bg-white text-center transition-all  group-focus-within:block group-hover:block group-focus:block group-aria-pressed:block ">
                     <ul>
-                      <li className="cursor-pointer  border-b py-2 hover:bg-neutral-50 hover:text-violet-700 focus:text-violet-700">
-                        Account
-                      </li>
+                      <Link href={"/account"}>
+                        <li className="cursor-pointer  border-b py-2 hover:bg-neutral-50 hover:text-violet-700 focus:text-violet-700">
+                          Account
+                        </li>
+                      </Link>
                       <li className="cursor-pointer border-b py-2 hover:bg-neutral-50 hover:text-violet-700 focus:text-violet-700">
                         Orders
                       </li>
