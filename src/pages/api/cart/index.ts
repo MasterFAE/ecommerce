@@ -17,7 +17,7 @@ const cartIndexHandler = async (req: NextApiRequest, res: NextApiResponse) => {
       break;
 
     case "POST":
-      const _items = req.body;
+      const _items = JSON.parse(req.body);
       if (_items.length === 0) {
         res.status(400).json({ error: "Cart is empty" });
         return;
@@ -29,6 +29,8 @@ const cartIndexHandler = async (req: NextApiRequest, res: NextApiResponse) => {
         res.status(400).json({ error: "Cart is empty" });
         return;
       }
+
+      // Check total price
 
       // Compare 2 arrays if they're same
       // Compare total with db price if theyre same
