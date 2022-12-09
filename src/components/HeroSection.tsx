@@ -3,7 +3,8 @@ import Image from "next/image";
 import { serialize } from "next-mdx-remote/serialize";
 import { MDXRemote } from "next-mdx-remote";
 import Link from "next/link";
-
+import img1 from "../../public/img/1.png";
+import img2 from "../../public/img/2.png";
 type Props = {};
 
 const ImageComponent = ({ source, alt }) => {
@@ -17,22 +18,16 @@ const components = {
 const HeroSection = (props: Props) => {
   const dummyMd = [
     {
-      img: "https://picsum.photos/1920/1080",
+      img: img1,
       alt: "item1",
       href: "",
       title: "Black Friday up to %75 off!",
     },
     {
-      img: "https://images.hepsiburada.net/banners/s/0/672-378/bannerImage2186_20221124175405.jpeg/format:webp",
+      img: img2,
       alt: "item2",
       href: "",
       title: "%60 Off",
-    },
-    {
-      img: "https://images.hepsiburada.net/banners/s/0/672-378/bannerImage2101_20221124162808.jpeg/format:webp",
-      alt: "item3",
-      href: "",
-      title: "%30 Off",
     },
   ];
 
@@ -69,7 +64,7 @@ const HeroSection = (props: Props) => {
   }, []);
 
   return (
-    <div className="relative h-[540px] w-[full]">
+    <div className="relative h-[640px] w-[full]">
       {renderItem(index)}
       <div className="relative top-[95%] flex flex-row items-center justify-center gap-x-2">
         {dummyMd.map((e, key) => {
