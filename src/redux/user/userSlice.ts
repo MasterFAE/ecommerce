@@ -3,7 +3,9 @@ import Router from "next/router";
 
 const initialState = {
   id: "",
-  name: "",
+  firstName: "",
+  lastName: "",
+  phoneNumber: "",
   email: "",
 
   image: "",
@@ -39,10 +41,13 @@ const userSlice = createSlice({
   },
   extraReducers(builder) {
     builder.addCase(getCurrentUser.fulfilled, (state, action) => {
-      const { id, name, civId, image, department, reservation } =
+      const { id, firstName, lastName, image, email, phoneNumber } =
         action.payload;
       state.id = id;
-      state.name = name;
+      state.firstName = firstName;
+      state.lastName = lastName;
+      state.email = email;
+      state.phoneNumber = phoneNumber;
 
       state.loggedIn = true;
     });

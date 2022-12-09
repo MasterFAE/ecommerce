@@ -17,12 +17,12 @@ const cartIndexHandler = async (req: NextApiRequest, res: NextApiResponse) => {
       break;
 
     case "POST":
-      const _items = JSON.parse(req.body);
+      const { items: _items } = JSON.parse(req.body);
+
       if (_items.length === 0) {
         res.status(400).json({ error: "Cart is empty" });
         return;
       }
-
       const dbItems = await prisma?.itemInCart.findMany({ where: { userId } });
 
       if (!dbItems || dbItems.length === 0) {
@@ -35,14 +35,16 @@ const cartIndexHandler = async (req: NextApiRequest, res: NextApiResponse) => {
       // Compare 2 arrays if they're same
       // Compare total with db price if theyre same
       const sortedBody = _items.slice().sort();
-      console.log({ sortedBody });
       const result: boolean =
         dbItems?.length === sortedBody.length &&
         dbItems
           ?.slice()
           .sort()
           .every(function (value, index) {
-            return value.itemId === sortedBody[index].itemId;
+            return (
+              value.itemId === sortedBody[index].itemId &&
+              value.quantity === sortedBody[index].quantity
+            );
           });
 
       if (!result) {
@@ -59,6 +61,11 @@ const cartIndexHandler = async (req: NextApiRequest, res: NextApiResponse) => {
           status: OrderStatus.WAITING,
         })),
       });
+      // { userId: userId, itemId: dbItems.map(e => e.itemId)}
+      await prisma?.itemInCart.deleteMany({
+        where: { userId, itemId: { in: dbItems.map((e) => e.itemId) } },
+      });
+
       if (!order) {
         res.status(400).json({
           error: "Something went wrong while trying to create an order.",

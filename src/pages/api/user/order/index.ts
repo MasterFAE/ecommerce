@@ -11,7 +11,10 @@ const OrderHandler = async (req: NextApiRequest, res: NextApiResponse) => {
   const userId = session.user.id;
   switch (req.method) {
     case "GET":
-      const orders = await prisma?.order.findMany({ where: { userId } });
+      const orders = await prisma?.order.findMany({
+        where: { userId },
+        include: { product: true },
+      });
       res.json(orders);
       break;
   }

@@ -33,19 +33,19 @@ const Details = (props: Props) => {
         <div className="grid grid-cols-2 gap-y-4">
           <div className="col-span-1">
             <h1 className="text-sm text-neutral-600">First Name</h1>
-            <h4 className="text-lg text-neutral-900">Sinan</h4>
+            <h4 className="text-lg text-neutral-900">{user.firstName}</h4>
           </div>
           <div className="col-span-1 col-start-2">
             <h1 className="text-sm text-neutral-600">Last Name</h1>
-            <h4 className="text-lg text-neutral-900">Gürcan</h4>
+            <h4 className="text-lg text-neutral-900">{user.lastName}</h4>
           </div>
           <div className="col-span-2 row-start-2">
             <h1 className="text-sm text-neutral-600">Email</h1>
-            <h4 className="text-lg text-neutral-900">s*********@*****.com</h4>
+            <h4 className="text-lg text-neutral-900">{user.email}</h4>
           </div>
           <div className="col-span-2 row-start-3">
             <h1 className="text-sm text-neutral-600">Phone Number</h1>
-            <h4 className="text-lg text-neutral-900">542*****55</h4>
+            <h4 className="text-lg text-neutral-900">{user.phoneNumber}</h4>
           </div>
         </div>
       </div>

@@ -4,9 +4,19 @@ import { ItemInCart, Product } from "@prisma/client";
 
 export type CartItemResponse = ItemInCart & { item: Product };
 
-type cartSlice = { total: number; items: CartItemResponse[]; deal: number };
+type cartSlice = {
+  total: number;
+  items: CartItemResponse[];
+  deal: number;
+  isLoading: boolean;
+};
 
-const initialState: cartSlice = { total: 0, items: [], deal: 0 };
+const initialState: cartSlice = {
+  total: 0,
+  items: [],
+  deal: 0,
+  isLoading: true,
+};
 
 export const getCartItems = createAsyncThunk(
   "cart/getCartItems",
@@ -84,6 +94,7 @@ const cartSlice = createSlice({
       let { total, deal } = calculateTotal(state.items);
       state.total = total;
       state.total = deal;
+      state.isLoading = false;
     });
     builder.addCase(deleteItem.fulfilled, (state, action) => {
       state.items = state.items.filter((e) => e.itemId !== action.payload.id);

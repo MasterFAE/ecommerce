@@ -1,9 +1,7 @@
 import { Formik, Form, ErrorMessage, Field } from "formik";
-import _error from "next/dist/pages/_error";
 import React, { useState } from "react";
 import Layout from "../components/Layout";
 import * as Yup from "yup";
-import { FcGoogle } from "react-icons/fc";
 import Link from "next/link";
 import { FaDiscord } from "react-icons/fa";
 import {
@@ -13,7 +11,6 @@ import {
   signIn,
 } from "next-auth/react";
 import { NextPageContext } from "next";
-import Router from "next/router";
 
 type Props = {
   providers: any;

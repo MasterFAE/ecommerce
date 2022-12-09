@@ -21,6 +21,7 @@ const ProductCard = (props: Props) => {
             src="https://picsum.photos/1920/1080"
             width={"1080px"}
             height={"1080px"}
+            alt={product.slug}
             quality={70}
             className="cursor-pointer rounded-lg object-cover transition-transform hover:scale-95"
           />

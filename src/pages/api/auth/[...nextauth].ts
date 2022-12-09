@@ -15,6 +15,7 @@ export const authOptions: NextAuthOptions = {
       const cart = await prisma.cart.findUnique({ where: { userId: user.id } });
       if (!cart) {
         try {
+          console.log(user.id);
           const _cart = await prisma.cart.create({
             data: { userId: user.id, total: 0 },
           });

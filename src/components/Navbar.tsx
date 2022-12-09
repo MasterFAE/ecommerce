@@ -31,8 +31,8 @@ const Navbar = (props: Props) => {
   };
   return (
     <div>
-      <div className="invisible hidden h-[9.5rem] w-[100%] md:block"></div>
-      <header className="fixed top-0 left-0 z-20 hidden w-full border-b border-neutral-600 bg-white md:block">
+      <div className="invisible hidden h-[9.5rem] w-[100%] sm:block"></div>
+      <header className="fixed top-0 left-0 z-20 hidden w-full border-b border-neutral-600 bg-white sm:block">
         <div className="m-auto grid h-full w-screen grid-cols-12  items-center py-6">
           <Link href={"/"}>
             <div className="col-span-2 col-start-3 cursor-pointer ">LOGO</div>

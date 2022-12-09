@@ -18,19 +18,19 @@ const HeroSection = (props: Props) => {
   const dummyMd = [
     {
       img: "https://picsum.photos/1920/1080",
-      alt: "",
+      alt: "item1",
       href: "",
       title: "Black Friday up to %75 off!",
     },
     {
       img: "https://images.hepsiburada.net/banners/s/0/672-378/bannerImage2186_20221124175405.jpeg/format:webp",
-      alt: "",
+      alt: "item2",
       href: "",
       title: "%60 Off",
     },
     {
       img: "https://images.hepsiburada.net/banners/s/0/672-378/bannerImage2101_20221124162808.jpeg/format:webp",
-      alt: "",
+      alt: "item3",
       href: "",
       title: "%30 Off",
     },
@@ -47,6 +47,7 @@ const HeroSection = (props: Props) => {
           objectFit="cover"
           quality={100}
           src={source.img}
+          alt={source?.alt}
           layout="fill"
         ></Image>
       </Link>

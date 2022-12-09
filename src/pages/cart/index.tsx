@@ -1,9 +1,11 @@
+import Router from "next/router";
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
-import CartItem from "../components/CartItem";
-import Layout from "../components/Layout";
-import { CartItemResponse } from "../redux/cart/cartSlice";
-import { storeType } from "../redux/store";
+import CartItem from "../../components/CartItem";
+import Layout from "../../components/Layout";
+import calculateTotal from "../../lib/calculateTotal";
+import { CartItemResponse } from "../../redux/cart/cartSlice";
+import { storeType } from "../../redux/store";
 
 type Props = {};
 
@@ -16,38 +18,37 @@ const Cart = (props: Props) => {
   const [deal, setDeal] = useState(0);
 
   React.useEffect(() => {
-    calculateTotal();
-  }, [items]);
-
-  const calculateTotal = () => {
-    let _total: number = 0,
-      _deal: number = 0;
-    items.forEach((element) => {
-      _total += element.item.price * element.quantity;
-      if (element.item.deal) {
-        _deal += Math.round(
-          element.item.price * element.quantity * (element.item.deal / 100)
-        );
-      }
-    });
+    const { _total, _deal } = calculateTotal(items);
     setTotal(_total);
     setDeal(_deal);
+  }, [items]);
+
+  const ReDirectPhase2 = () => {
+    Router.push("cart/checkout");
   };
 
   return (
     <Layout>
       <div className="grid gap-x-2 md:grid-cols-12">
-        <div className="flex flex-col gap-y-1 rounded-md   p-4 md:col-span-9">
+        <div className="flex flex-col gap-y-1 rounded-md p-4 md:col-span-9">
           <h1 className="text-2xl font-semibold text-neutral-800">
             {items.length} Items
           </h1>
-          {items.map((e: CartItemResponse) => {
-            return <CartItem data={e} />;
-          })}
-        </div>
-        <div className="flex w-full flex-col rounded-sm border bg-neutral-100 p-4 md:col-span-3">
-          <div className=" text-2xl font-medium text-neutral-800">Summary</div>
           {items.length > 0 ? (
+            <>
+              {items.map((e: CartItemResponse) => {
+                return <CartItem data={e} />;
+              })}
+            </>
+          ) : (
+            <h1 className="text-neutral-500">Add new items into your cart!</h1>
+          )}
+        </div>
+        {items.length > 0 && (
+          <div className="flex min-h-[30vh] w-full flex-col rounded-sm border bg-neutral-100 p-4 md:col-span-3 md:min-h-[65vh]">
+            <div className=" text-2xl font-medium text-neutral-800">
+              Summary
+            </div>
             <>
               <div className="mt-1 flex flex-col  gap-y-1 rounded-md border bg-white p-4">
                 <div className="flex w-full justify-between text-base">
@@ -78,14 +79,17 @@ const Cart = (props: Props) => {
                   </p>
                 </div>
               </div>
-              <button className="mt-2 rounded-lg bg-green-600 p-1 text-lg text-white transition-all hover:bg-green-700 focus:bg-green-700">
-                Continue
-              </button>
+              {items.length > 0 && (
+                <button
+                  onClick={ReDirectPhase2}
+                  className="mt-2 rounded-lg bg-green-600 p-1 text-lg text-white transition-all hover:bg-green-700 focus:bg-green-700"
+                >
+                  Continue
+                </button>
+              )}
             </>
-          ) : (
-            <h1 className="text-neutral-500">0 items in your cart</h1>
-          )}
-        </div>
+          </div>
+        )}
       </div>
     </Layout>
   );
