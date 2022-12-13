@@ -41,7 +41,7 @@ const Details = (props: Props) => {
           </div>
           <div className="col-span-2 row-start-2">
             <h1 className="text-sm text-neutral-600">Email</h1>
-            <h4 className="text-lg text-neutral-900">{user.email}</h4>
+            <h4 className="truncate text-lg text-neutral-900">{user.email}</h4>
           </div>
           <div className="col-span-2 row-start-3">
             <h1 className="text-sm text-neutral-600">Phone Number</h1>

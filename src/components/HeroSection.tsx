@@ -70,12 +70,12 @@ const HeroSection = (props: Props) => {
         {dummyMd.map((e, key) => {
           if (key === index)
             return (
-              <span className="h-5 w-5 cursor-pointer rounded-full bg-gray-600 bg-opacity-[0.85] ring-1 ring-gray-700"></span>
+              <span className="h-5 w-5 cursor-pointer rounded-full bg-neutral-600 bg-opacity-[0.85] ring-1 ring-neutral-700"></span>
             );
           return (
             <span
               onClick={() => setIndex(key)}
-              className="h-5 w-5 cursor-pointer rounded-full bg-gray-800 bg-opacity-[0.85] ring-1 ring-gray-900"
+              className="h-5 w-5 cursor-pointer rounded-full bg-neutral-800 bg-opacity-[0.85] ring-1 ring-neutral-900"
             ></span>
           );
         })}

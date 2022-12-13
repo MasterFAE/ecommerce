@@ -71,12 +71,12 @@ const Navbar = (props: Props) => {
             {/* )} */}
           </div>
 
-          <div className="col-span-2 col-start-10 m-auto flex h-full w-full flex-row items-center justify-center divide-x divide-neutral-300 rounded-lg  border bg-white">
-            <button className="group relative flex h-full w-full items-center rounded-l-lg bg-neutral-100 transition-colors hover:bg-violet-100 focus:bg-violet-100">
+          <div className="col-span-2 col-start-10 m-auto flex h-full w-full flex-row items-center justify-center divide-x divide-neutral-300 rounded-lg  border bg-white text-neutral-800">
+            <button className="group relative flex h-full w-full items-center rounded-l-lg bg-neutral-100 transition-colors hover:bg-neutral-200 focus:bg-neutral-100">
               {user.loggedIn ? (
                 <>
                   <Link href={"/account"}>
-                    <span className="flex w-full items-center justify-center text-center text-lg transition-all group-hover:text-violet-900 group-focus:text-violet-900">
+                    <span className="flex w-full items-center justify-center text-center text-lg transition-all ">
                       <h1 className="hidden lg:block">Account</h1>
                       <FaUserAlt className="block text-neutral-700 lg:hidden" />
                     </span>
@@ -84,16 +84,14 @@ const Navbar = (props: Props) => {
                   <div className="text-md absolute  top-full hidden w-full items-center divide-x rounded-lg rounded-t-none bg-white text-center transition-all  group-focus-within:block group-hover:block group-focus:block group-aria-pressed:block ">
                     <ul>
                       <Link href={"/account"}>
-                        <li className="cursor-pointer  border-b py-2 hover:bg-neutral-50 hover:text-violet-700 focus:text-violet-700">
+                        <li className="cursor-pointer  border-b py-2 hover:bg-neutral-50 ">
                           Account
                         </li>
                       </Link>
-                      <li className="cursor-pointer border-b py-2 hover:bg-neutral-50 hover:text-violet-700 focus:text-violet-700">
-                        Orders
-                      </li>
+
                       <li
                         onClick={() => signOut()}
-                        className="cursor-pointer rounded-b-lg py-2 hover:bg-neutral-50 hover:text-violet-700 focus:text-violet-700"
+                        className="cursor-pointer rounded-b-lg py-2 hover:bg-neutral-50 "
                       >
                         Log Out
                       </li>
@@ -102,14 +100,14 @@ const Navbar = (props: Props) => {
                 </>
               ) : (
                 <Link href={"/login"}>
-                  <div className="w-full cursor-pointer text-center text-lg transition-all group-hover:text-violet-900 ">
+                  <div className="w-full cursor-pointer text-center text-lg transition-all ">
                     Login
                   </div>
                 </Link>
               )}
             </button>
             <Link href={"/cart"}>
-              <div className="flex h-full w-full cursor-pointer flex-row items-center justify-center gap-x-2 self-center rounded-r-lg bg-neutral-100 text-center transition-all duration-75 hover:bg-violet-100 focus:bg-violet-100">
+              <div className="flex h-full w-full cursor-pointer flex-row items-center justify-center gap-x-2 self-center rounded-r-lg bg-neutral-100 text-center transition-all duration-75 hover:bg-neutral-200 focus:bg-neutral-200">
                 <h1 className="hidden lg:block">Cart</h1>
                 <FaShoppingCart className="block text-neutral-700 lg:hidden" />
                 <div className="rounded-full bg-yellow-400 px-2 py-1 text-xs font-bold text-neutral-700 ring-1 ring-yellow-500">

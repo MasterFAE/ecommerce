@@ -119,7 +119,7 @@ const AddCartButton = (props: Props) => {
     <button
       disabled={status === ADDCARTSTATUS.LOADING}
       onClick={addToCart}
-      className="rounded-full  bg-blue-500 p-2 text-white transition-all hover:bg-blue-700 hover:text-neutral-200 focus:ring"
+      className="rounded-md  bg-blue-500 p-2 text-white transition-all hover:bg-blue-700 hover:text-neutral-200 focus:ring"
     >
       {renderStatus(status)}
     </button>

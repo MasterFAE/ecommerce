@@ -15,18 +15,21 @@ const Reviews = (props: Props) => {
       <div className="col-span-12 row-start-4">
         <h1 className="self-end text-base text-neutral-600">Reviews</h1>
         <div className="grid grid-cols-2 gap-2">
-          {!reviews && (
+          {!reviews ? (
             <div className="col-span-2 flex justify-center">
               <Loading></Loading>
             </div>
-          )}
-          {reviews && reviews.length > 0 ? (
-            //reviews will render in this condition
-            <></>
           ) : (
-            <p className="col-span-2 text-center text-sm text-neutral-600">
-              You haven't made any review
-            </p>
+            <>
+              {reviews && reviews.length > 0 ? (
+                //reviews will render in this condition
+                <></>
+              ) : (
+                <p className="col-span-2 text-center text-sm text-neutral-600">
+                  You haven't made any review
+                </p>
+              )}
+            </>
           )}
         </div>
       </div>

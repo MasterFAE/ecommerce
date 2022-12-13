@@ -14,7 +14,14 @@ type Props = {
 
 const ProductPage = (props: Props) => {
   const data = props.data;
-  if (!data.id) return <></>;
+  if (!data || !data.id)
+    return (
+      <Layout>
+        <div className="flex h-full min-h-[35vh] flex-row items-center justify-center text-center text-xl font-light">
+          Item doesn't exist
+        </div>
+      </Layout>
+    );
   return (
     <Layout>
       <div className="flex flex-col gap-x-10 gap-y-4 lg:flex-row">
@@ -62,7 +69,7 @@ const ProductPage = (props: Props) => {
               </div>
             </div>
           </div>
-          <div className="flex flex-row justify-between gap-x-2 p-2">
+          <div className="flex flex-row justify-between">
             <AddCartButton text="Add to Cart" id={data.id} />
             {/* <LikeButton /> */}
           </div>

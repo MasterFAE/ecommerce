@@ -33,7 +33,7 @@ const Layout = (props: Props) => {
       <Navbar />
       <MobileNavbar />
       <main className="min-w-screen  min-h-screen bg-white">
-        <div className="m-auto min-h-[70vh] rounded-md border bg-neutral-50  px-2 py-2 shadow-md lg:w-3/4 lg:p-4">
+        <div className="m-auto min-h-[70vh] rounded-md border bg-neutral-50 p-2 shadow-md lg:w-3/4 lg:p-4">
           {props.children}
         </div>
       </main>

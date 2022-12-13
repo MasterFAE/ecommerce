@@ -16,29 +16,32 @@ const Orders = (props: Props) => {
       <div className="col-span-12 row-start-4">
         <h1 className="self-end text-base text-neutral-600">Orders</h1>
         <div className="">
-          {!data && (
+          {!data ? (
             <div className="flex justify-center">
               <Loading></Loading>
             </div>
-          )}
-          {data && data.length > 0 ? (
-            //reviews will render in this condition
-            <span className="grid grid-cols-1 gap-2">
-              {data
-                .sort(function (a, b) {
-                  return (
-                    new Date(b.createdAt).getTime() -
-                    new Date(a.createdAt).getTime()
-                  );
-                })
-                .map((item) => (
-                  <OrderItem data={item}></OrderItem>
-                ))}
-            </span>
           ) : (
-            <p className="col-span-2 text-center text-sm text-neutral-600">
-              You haven't made any order
-            </p>
+            <>
+              {data && data.length > 0 ? (
+                //reviews will render in this condition
+                <span className="grid grid-cols-1 gap-2">
+                  {data
+                    .sort(function (a, b) {
+                      return (
+                        new Date(b.createdAt).getTime() -
+                        new Date(a.createdAt).getTime()
+                      );
+                    })
+                    .map((item) => (
+                      <OrderItem data={item}></OrderItem>
+                    ))}
+                </span>
+              ) : (
+                <p className="col-span-2 text-center text-sm text-neutral-600">
+                  You haven't made any order
+                </p>
+              )}
+            </>
           )}
         </div>
       </div>

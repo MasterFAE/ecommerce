@@ -8,9 +8,6 @@ type Props = {
 
 const OrderItem = (props: Props) => {
   const { product, quantity } = props.data;
-  console.log(props.data);
-  console.log(product);
-
   return (
     <div className="flex flex-row gap-x-3 rounded-md border bg-white p-2 transition-colors hover:bg-neutral-100">
       <div className="h-20 w-20 rounded-lg bg-violet-300"></div>
