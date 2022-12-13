@@ -16,6 +16,12 @@ function defineNextConfig(config) {
 export default defineNextConfig({
   reactStrictMode: true,
   swcMinify: true,
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
+  typescript: {
+    ignoreBuildErrors: true,
+  },
   images: {
     domains: ["picsum.photos", "images.hepsiburada.net", "cdn.discordapp.com"],
   },

@@ -1,16 +1,9 @@
-import { Product } from "@prisma/client";
 import React, { useState } from "react";
 import { FaShoppingCart, FaExclamation } from "react-icons/fa";
 import { MdDone } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
-import product from "../pages/api/product";
-import {
-  addItem,
-  updateItemQuantity,
-  updateQuantity,
-} from "../redux/cart/cartSlice";
+import { addItem, updateQuantity } from "../redux/cart/cartSlice";
 import { storeType } from "../redux/store";
-import ADD_CART_OPERATION from "../types/addCartOperation";
 import ADDCARTSTATUS from "../types/addCartStatusType";
 
 type Props = {
