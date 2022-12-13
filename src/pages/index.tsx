@@ -7,32 +7,6 @@ import CategoryCard from "../components/CategoryCard";
 import HeroSection from "../components/HeroSection";
 import Link from "next/link";
 import Loading from "../components/Loading";
-/*
-  TODO:
-  * Footer:
-    X initial design
-    - Links
-  * Cart Page:  
-        X Fetch items in cart
-        X Calculate total
-        - Page 2
-        - Address info?
-        - Cart info?
-        - Payment
-  * Orders Page
-      - Fetch orders and list
-      - Cancel if type == WAITING
-      - Review if type == DELIVERED
-  * Register Page
-
-  * Account Details Page
-      - Change password
-      - Change email
-      - See adress info and change them
-
-  * Category Page
-  * Mobile navbar and adjustments
-*/
 
 const Home: NextPage = () => {
   const { data, error } = useSWR("/api/product", fetcher);
@@ -41,7 +15,8 @@ const Home: NextPage = () => {
     fetcher
   );
 
-  if (error || category_error)
+  if (error || category_error) {
+    console.log(error);
     return (
       <Layout>
         <div className="mt-[20vh] flex h-full w-full items-center justify-center gap-x-2">
@@ -49,6 +24,7 @@ const Home: NextPage = () => {
         </div>
       </Layout>
     );
+  }
   if (!data || !category_data)
     return (
       <Layout>
