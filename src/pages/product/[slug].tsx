@@ -77,14 +77,12 @@ const ProductPage = (props: Props) => {
 };
 export async function getServerSideProps(context: NextPageContext) {
   const { res, query } = context;
-  const response = await fetch(
-    `http://localhost:3000/api/product/${query.slug}`
-  );
-  const data = await response.json();
   res?.setHeader(
     "Cache-Control",
     "public, s-maxage=10, stale-while-revalidate=59"
   );
+  const response = await fetch(`/api/product/${query.slug}`);
+  const data = await response.json();
 
   return {
     props: { data },
