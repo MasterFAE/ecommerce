@@ -81,7 +81,9 @@ export async function getServerSideProps(context: NextPageContext) {
     "Cache-Control",
     "public, s-maxage=10, stale-while-revalidate=59"
   );
-  const response = await fetch(`api/product/${query.slug}`);
+  const response = await fetch(
+    `https://fae-ecommerce.vercel.app/api/product/${query.slug}`
+  );
   const data = await response.json();
 
   return {
