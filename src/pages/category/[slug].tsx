@@ -88,7 +88,7 @@ const CategorySlugPage = (props: Props) => {
 };
 export async function getServerSideProps(context: NextPageContext) {
   const { res, query } = context;
-  const response = await fetch(`/api/category/${query.slug}`);
+  const response = await fetch(`api/category/${query.slug}`);
   const data = await response.json();
   return {
     props: { data },
