@@ -5,12 +5,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { addItem, updateQuantity } from "../redux/cart/cartSlice";
 import { storeType } from "../redux/store";
 import ADDCARTSTATUS from "../types/addCartStatusType";
+import Loading from "./Loading";
 
 type Props = {
   id: number;
   quantity?: number | 1;
   text?: string;
-  size?: string;
 };
 
 const AddCartButton = (props: Props) => {
@@ -21,25 +21,7 @@ const AddCartButton = (props: Props) => {
   const renderStatus = (_status: ADDCARTSTATUS) => {
     switch (_status) {
       case ADDCARTSTATUS.DEFAULT:
-        if (props.text) {
-          if (props.size === "sm") {
-            return (
-              <div className="flex flex-row items-center justify-center gap-x-1 px-1 font-medium">
-                <FaShoppingCart size={14}></FaShoppingCart>
-                <h6 className="text-xs">{props.text && props.text}</h6>
-              </div>
-            );
-          } else {
-            return (
-              <div className="flex flex-row items-center justify-center gap-x-2 px-2 font-medium">
-                <FaShoppingCart size={16}></FaShoppingCart>
-                <h6 className="text-sm">{props.text && props.text}</h6>
-              </div>
-            );
-          }
-        } else {
-          return <FaShoppingCart size={16}></FaShoppingCart>;
-        }
+        return <FaShoppingCart size={16}></FaShoppingCart>;
 
       case ADDCARTSTATUS.LOADING:
         return (
@@ -112,7 +94,7 @@ const AddCartButton = (props: Props) => {
     <button
       disabled={status === ADDCARTSTATUS.LOADING}
       onClick={addToCart}
-      className="rounded-md  bg-blue-500 p-2 text-white transition-all hover:bg-blue-700 hover:text-neutral-200 focus:ring"
+      className="rounded-md bg-blue-500 p-2 text-white shadow-md shadow-blue-300 transition-all hover:bg-blue-700 hover:text-neutral-200 focus:ring"
     >
       {renderStatus(status)}
     </button>

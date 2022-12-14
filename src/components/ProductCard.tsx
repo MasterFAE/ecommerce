@@ -6,6 +6,7 @@ import Link from "next/link";
 import LikeButton from "./LikeButton";
 import { Category, Product } from "@prisma/client";
 import AddCartButton from "./AddCartButton";
+import ReviewStars from "./ReviewStars";
 
 type Props = {
   product: Product & { primaryCategory: Category };
@@ -14,22 +15,23 @@ type Props = {
 const ProductCard = (props: Props) => {
   const { product } = props;
   return (
-    <div className="flex min-h-[250px] flex-col rounded-lg border bg-white p-2 md:min-h-[300px] lg:min-h-[350px]">
+    <div className="flex min-h-[250px] flex-col rounded-lg border bg-white py-2  md:min-h-[300px] lg:min-h-[350px]">
       <div className="h-fit w-fit">
-        <Link className="h-fit w-fit " href={`/product/${product.slug}`}>
+        <Link href={`/product/${product.slug}`}>
           <Image
-            src="https://picsum.photos/1920/1080"
-            width={"1080px"}
-            height={"1080px"}
+            src={product.coverImage}
+            width={"400"}
+            height={"500"}
             alt={product.slug}
-            quality={70}
-            className="cursor-pointer rounded-lg object-cover transition-transform hover:scale-95"
+            quality={100}
+            objectFit="cover"
+            className="scale-95 cursor-pointer rounded-lg transition-transform hover:scale-90"
           />
         </Link>
       </div>
-      <div className="flex h-full w-full flex-col justify-between divide-neutral-300  px-3">
+      <div className="flex h-full w-full flex-col justify-between divide-neutral-300  px-3 sm:pb-1">
         {/* Item main info */}
-        <div className="">
+        <div>
           {/* Item name, image */}
           <div className="w-full font-semibold text-neutral-700">
             <Link className="h-fit w-full" href={`/product/${product.slug}`}>
@@ -44,20 +46,7 @@ const ProductCard = (props: Props) => {
                   {product.primaryCategory.name}
                 </h4>
               </Link>
-              {/* Item review star */}
-              <div className="flex flex-row items-center">
-                <FaStar className="text-base text-yellow-500 md:text-lg" />
-                <FaStar className="text-base text-yellow-500 md:text-lg" />
-                <FaStar className="text-base text-yellow-500 md:text-lg" />
-                <FaStar className="text-base text-yellow-500 md:text-lg" />
-                <FaStar className="text-base text-neutral-300 md:text-lg" />
-                <h1 className="ml-1 cursor-pointer self-center text-xs font-medium text-neutral-500 hover:underline md:text-sm">
-                  +{product._count.review}
-                </h1>
-              </div>
-              <h1 className="price-tag flex items-center gap-x-1 md:hidden">
-                {product.price.toFixed(2)} ₺
-              </h1>
+              <ReviewStars count={product._count.review} />
             </div>
 
             {/* <div className="self-end rounded-full bg-red-500 p-1 px-2">
@@ -67,14 +56,11 @@ const ProductCard = (props: Props) => {
               </div> */}
           </div>
         </div>
-        <div className="mt-2 flex flex-col items-center justify-between md:flex-row">
-          <h1 className="price-tag hidden w-full items-center gap-x-1 text-lg md:flex">
+        <div className="mt-2 flex w-full flex-row items-center justify-between  md:flex-row">
+          <h1 className="price-tag flex w-full items-center gap-x-1 ">
             {product.price.toFixed(2)} ₺
           </h1>
-          <div className="flex w-full flex-row items-center justify-center gap-x-8 self-end  md:mt-0 md:justify-end md:gap-x-2">
-            <AddCartButton text="Add to Cart" size="sm" id={product.id} />
-            {/* <LikeButton size={16} /> */}
-          </div>
+          <AddCartButton text="Add to Cart" size="sm" id={product.id} />
         </div>
         {/* <div className="self-center rounded-full bg-red-500 p-1 px-2">
             <h4 className="text-center text-xs font-bold text-neutral-50">

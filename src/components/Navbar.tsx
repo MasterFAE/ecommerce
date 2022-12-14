@@ -123,13 +123,17 @@ const Navbar = (props: Props) => {
               <></>
             ) : (
               <>
-                {category_data.map((e: Category) => (
-                  <Link href={`/category/${e.slug}`} key={e.slug}>
-                    <h1 className="cursor-pointer text-base text-white transition-colors hover:text-neutral-200">
-                      {e.name}
-                    </h1>
-                  </Link>
-                ))}
+                {category_data
+                  .sort(function (a, b) {
+                    return a.id - b.id;
+                  })
+                  .map((e: Category) => (
+                    <Link href={`/category/${e.slug}`} key={e.slug}>
+                      <h1 className="cursor-pointer text-base text-white transition-colors hover:text-neutral-200">
+                        {e.name}
+                      </h1>
+                    </Link>
+                  ))}
               </>
             )}
           </div>

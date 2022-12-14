@@ -7,6 +7,7 @@ import { FaStar } from "react-icons/fa";
 import AddCartButton from "../../components/AddCartButton";
 import Layout from "../../components/Layout";
 import LikeButton from "../../components/LikeButton";
+import ReviewStars from "../../components/ReviewStars";
 
 type Props = {
   data: Product & { primaryCategory: Category };
@@ -14,64 +15,60 @@ type Props = {
 
 const ProductPage = (props: Props) => {
   const data = props.data;
+
   if (!data || !data.id)
     return (
       <Layout>
-        <div className="flex h-full min-h-[35vh] flex-row items-center justify-center text-center text-xl font-light">
+        <div className="flex  min-h-[35vh] flex-row items-center justify-center text-center text-xl font-light">
           Item doesn't exist
         </div>
       </Layout>
     );
   return (
     <Layout>
-      <div className="flex flex-col gap-x-10 gap-y-4 lg:flex-row">
+      <div className="flex h-full flex-col gap-x-10 gap-y-4 lg:flex-row">
         <Image
-          src={data.coverImage || "https://picsum.photos/1920/1080"}
+          src={data.coverImage || "https://picsum.photos/1080/1080"}
           alt={data.name}
-          height={1400}
-          width={1400}
+          height={1280}
+          width={1080}
           objectFit="cover"
         />
         <div className="flex w-full flex-col justify-between rounded-lg border bg-white p-8">
-          <div className="flex h-full flex-col justify-between gap-y-4 divide-y divide-neutral-200">
+          <div className="flex h-full flex-col justify-between gap-y-4 divide-y divide-neutral-200 ">
             {/* Item name, image */}
-            <div className="font-semibold text-neutral-700">
-              <span className="cursor-pointer text-xl leading-none hover:underline">
-                {data.name}
-              </span>
-              <Link href={`/category/${data.primaryCategory.slug}`}>
-                <h4 className="cursor-pointer text-sm font-light leading-tight text-neutral-500 hover:underline">
-                  {data.primaryCategory.name}
-                </h4>
-              </Link>
-              <div className="mt-2 border-t pt-2 text-sm font-light text-neutral-700 line-clamp-6">
-                <p>
+            <div className="h-full">
+              <div className="flex flex-row justify-between pb-1">
+                <div>
+                  <span className="cursor-pointer text-xl font-semibold leading-none text-neutral-700 hover:underline">
+                    {data.name}
+                  </span>
+                  <Link href={`/category/${data.primaryCategory.slug}`}>
+                    <h4 className="cursor-pointer text-sm font-light leading-tight text-neutral-500 hover:underline">
+                      {data.primaryCategory.name}
+                    </h4>
+                  </Link>
+                </div>
+                <ReviewStars count={data._count.review}></ReviewStars>
+              </div>
+
+              <div className="flex h-full flex-col justify-between border-t pt-2">
+                <div className="text-sm font-light text-neutral-700">
                   {data.description ||
                     "No description provided for this product."}
-                </p>
+                </div>
               </div>
             </div>
-            <div className="flex flex-row justify-between px-2 pt-4">
+            <div className="mt-8 flex flex-row justify-between pt-6">
               <div className="flex flex-row items-center gap-x-1">
                 <h1 className="price-tag  text-2xl">
                   {data.price.toFixed(2)} ₺
                 </h1>
               </div>
-              <div className="flex flex-row items-center">
-                <FaStar size={18} className="text-yellow-500" />
-                <FaStar size={18} className="text-yellow-500" />
-                <FaStar size={18} className="text-yellow-500" />
-                <FaStar size={18} className="text-yellow-500" />
-                <FaStar size={18} className="text-neutral-300" />
-                <h1 className="ml-2 cursor-pointer text-center text-sm font-medium text-neutral-500 hover:underline">
-                  +{data._count.review}
-                </h1>
+              <div className="flex flex-row justify-between gap-x-4">
+                <AddCartButton text="Add to Cart" id={data.id} />
               </div>
             </div>
-          </div>
-          <div className="flex flex-row justify-between">
-            <AddCartButton text="Add to Cart" id={data.id} />
-            {/* <LikeButton /> */}
           </div>
         </div>
       </div>

@@ -23,7 +23,12 @@ export default defineNextConfig({
     ignoreBuildErrors: true,
   },
   images: {
-    domains: ["picsum.photos", "images.hepsiburada.net", "cdn.discordapp.com"],
+    domains: [
+      "picsum.photos",
+      "images.hepsiburada.net",
+      "cdn.discordapp.com",
+      "media.discordapp.net",
+    ],
   },
   /** Next.js i18n docs:
    * @see https://nextjs.org/docs/advanced-features/i18n-routing

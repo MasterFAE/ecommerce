@@ -30,7 +30,7 @@ const Cart = (props: Props) => {
   return (
     <Layout>
       <div className="grid gap-x-2 md:grid-cols-12">
-        <div className="flex flex-col gap-y-1 rounded-md p-4 md:col-span-9">
+        <div className="flex flex-col gap-y-1 rounded-md py-4 sm:p-4 md:col-span-9">
           <h1 className="text-2xl font-semibold text-neutral-800">
             {items.length} Items
           </h1>

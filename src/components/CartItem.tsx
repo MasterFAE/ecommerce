@@ -1,9 +1,8 @@
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { FaTrash } from "react-icons/fa";
-import { MdDone } from "react-icons/md";
+import Image from "next/image";
 import { useDispatch } from "react-redux";
-import fetcher from "../lib/fetcher";
 import {
   CartItemResponse,
   deleteItem,
@@ -67,10 +66,20 @@ const CartItem = (props: Props) => {
   };
 
   return (
-    <div className="flex flex-row gap-x-3 rounded-md border bg-white p-2 transition-colors hover:bg-neutral-100">
-      <div className="h-20 w-20 rounded-lg bg-violet-300"></div>
-      <div className=" grid w-full grid-cols-8">
-        <div className="col-span-5 my-2 flex h-full flex-col items-start justify-start ">
+    <div className="flex flex-row gap-x-4 rounded-md border bg-white p-2 transition-colors hover:bg-neutral-100">
+      <Link href={`/product/${data.item.slug}`}>
+        <Image
+          src={data.item.coverImage}
+          width={"400"}
+          height={"500"}
+          alt={data.item.slug}
+          quality={100}
+          objectFit="cover"
+          className="scale-95 cursor-pointer rounded-lg transition-transform hover:scale-90"
+        />
+      </Link>
+      <div className="grid w-full grid-cols-8 py-12 ">
+        <div className="col-span-8 my-2 flex h-full flex-col items-start justify-center">
           <Link href={"/product/" + data.item.slug}>
             <h1 className="cursor-pointer self-start text-lg font-light hover:underline">
               {data.item.name}
@@ -82,9 +91,9 @@ const CartItem = (props: Props) => {
               : "0.00₺"}
           </h1>
         </div>
-        <div className="col-span-3 mr-1 flex h-full  w-full flex-col items-center justify-center gap-y-2">
-          <div className="flex h-fit w-full flex-row items-center justify-end gap-x-2 lg:mr-2 lg:gap-x-4">
-            <div className="flex flex-row items-center gap-x-1">
+        <div className=" col-span-8 mt-2 flex h-full w-full flex-col gap-y-2 sm:mt-0">
+          <div className="flex h-fit w-full flex-row gap-x-2 lg:mr-2 lg:gap-x-4">
+            <div className="flex flex-row gap-x-1">
               <button
                 onClick={() =>
                   onChangeQuantity({ target: { value: quantity - 1 } })
@@ -119,9 +128,9 @@ const CartItem = (props: Props) => {
           {quantityButton && (
             <button
               onClick={changeQuantity}
-              className="flex w-40 flex-row justify-center self-end rounded-lg bg-blue-500 p-1 text-sm text-white transition-all hover:bg-blue-600 focus:bg-blue-600"
+              className="flex w-fit flex-row justify-center  rounded-lg bg-blue-500 p-1 px-8 text-sm text-white transition-all hover:bg-blue-600 focus:bg-blue-600"
             >
-              Change Quantity
+              Change
             </button>
           )}
         </div>

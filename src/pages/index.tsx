@@ -37,10 +37,10 @@ const Home: NextPage = () => {
 
   return (
     <Layout>
-      <div className="min-h-[450px] w-full">
+      <div className=" w-full">
         <HeroSection />
       </div>
-      <div className="my-2 flex flex-col justify-between gap-x-4 gap-y-2 sm:flex-row">
+      {/* <div className="my-2 flex flex-col justify-between gap-x-4 gap-y-2 sm:flex-row">
         <div className="w-full rounded-md bg-blue-300 p-1 px-4 text-center text-sm font-medium text-blue-900">
           I am actively working on this project and will continue to update and
           improve it.
@@ -62,9 +62,9 @@ const Home: NextPage = () => {
             </a>
           </Link>
         </div>
-      </div>
+      </div> */}
       <div className="mt-2">
-        <h1 className="w-fit border-b border-neutral-300 pr-2 text-lg font-semibold text-neutral-700">
+        <h1 className="w-fit text-lg font-semibold text-neutral-800">
           Popular Categories
         </h1>
 
@@ -77,8 +77,8 @@ const Home: NextPage = () => {
           ))}
         </div>
       </div>
-      <div className="mt-2">
-        <h1 className="w-fit border-b border-neutral-300 pr-2 text-lg font-semibold text-neutral-700">
+      <div className="mt-8">
+        <h1 className="w-fit text-lg font-semibold text-neutral-800">
           Featured Products
         </h1>
 

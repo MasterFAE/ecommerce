@@ -36,16 +36,19 @@ const HeroSection = (props: Props) => {
   function renderItem(_id) {
     const source = dummyMd[_id];
     return (
-      <Link href={source.href}>
-        <Image
-          className="cursor-pointer"
-          objectFit="cover"
-          quality={100}
-          src={source.img}
-          alt={source?.alt}
-          layout="fill"
-        ></Image>
-      </Link>
+      <div className="w-full bg-red-50">
+        <Link href={source.href}>
+          <Image
+            className="cursor-pointer"
+            objectFit="cover"
+            quality={100}
+            src={source.img}
+            alt={source?.alt}
+            width={1920}
+            height={860}
+          ></Image>
+        </Link>
+      </div>
     );
   }
   useEffect(() => {
@@ -64,9 +67,9 @@ const HeroSection = (props: Props) => {
   }, []);
 
   return (
-    <div className="relative h-[640px] w-[full]">
+    <div className="relative w-[full]">
       {renderItem(index)}
-      <div className="relative top-[95%] flex flex-row items-center justify-center gap-x-2">
+      <div className="relative flex flex-row items-center justify-center gap-x-2">
         {dummyMd.map((e, key) => {
           if (key === index)
             return (
