@@ -110,13 +110,13 @@ const Login = (props: Props) => {
             >
               Login
             </button>
-            <button
+            {/* <button
               onClick={() => signIn("discord")}
               className="mt-4 flex w-full items-center justify-center gap-x-2 rounded-lg bg-neutral-100 py-2 text-lg font-medium text-neutral-700 shadow-md transition-all hover:bg-neutral-200 focus:bg-neutral-200"
             >
               <FaDiscord size={24} />
               Sign in with Discord
-            </button>
+            </button> */}
           </Form>
         </Formik>
       </div>
