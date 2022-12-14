@@ -73,7 +73,7 @@ const HeroSection = (props: Props) => {
         {dummyMd.map((e, key) => {
           if (key === index)
             return (
-              <span className="h-5 w-5 cursor-pointer rounded-full bg-neutral-600 bg-opacity-[0.85] ring-1 ring-neutral-700"></span>
+              <span className="h-5 w-5 cursor-pointer rounded-full bg-neutral-500 bg-opacity-[0.85] ring-1 ring-neutral-300"></span>
             );
           return (
             <span
