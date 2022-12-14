@@ -1,5 +1,6 @@
 import { NextApiResponse, NextApiRequest } from "next";
 import { getServerAuthSession } from "../../../../server/common/get-server-auth-session";
+import { prisma } from "../../../../server/db/client";
 
 const AddressHandler = async (req: NextApiRequest, res: NextApiResponse) => {
   const session = await getServerAuthSession({ req, res });
@@ -10,7 +11,7 @@ const AddressHandler = async (req: NextApiRequest, res: NextApiResponse) => {
   const userId = session.user.id;
   switch (req.method) {
     case "GET":
-      const address = await prisma?.address.findMany({ where: { userId } });
+      const address = await prisma.address.findMany({ where: { userId } });
       res.json(address);
       break;
     case "POST":
@@ -28,7 +29,7 @@ const AddressHandler = async (req: NextApiRequest, res: NextApiResponse) => {
         isCurrent,
       } = req.body;
       try {
-        await prisma?.address.create({
+        await prisma.address.create({
           data: {
             userName,
             userSurname,

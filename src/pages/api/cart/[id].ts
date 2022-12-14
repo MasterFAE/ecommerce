@@ -1,6 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { getServerAuthSession } from "../../../server/common/get-server-auth-session";
 import ADD_CART_OPERATION from "../../../types/addCartOperation";
+import { prisma } from "../../../server/db/client";
 
 const cartIdHandler = async (req: NextApiRequest, res: NextApiResponse) => {
   const session = await getServerAuthSession({ req, res });
@@ -12,14 +13,14 @@ const cartIdHandler = async (req: NextApiRequest, res: NextApiResponse) => {
 
   switch (req.method) {
     case "DELETE":
-      const result = await prisma?.itemInCart.delete({
+      const result = await prisma.itemInCart.delete({
         where: { userId_itemId: { userId, itemId } },
       });
       res.status(200).json(result);
       break;
     case "PATCH":
       try {
-        const cartItem = await prisma?.itemInCart.update({
+        const cartItem = await prisma.itemInCart.update({
           where: { userId_itemId: { userId, itemId } },
           data: { quantity: req.body.quantity },
         });
@@ -31,12 +32,12 @@ const cartIdHandler = async (req: NextApiRequest, res: NextApiResponse) => {
       break;
     case "POST":
       try {
-        const product = await prisma?.product.findFirst({
+        const product = await prisma.product.findFirst({
           where: { id: itemId },
         });
         if (!product) res.status(404).send("Invalid item.");
 
-        const item = await prisma?.itemInCart.create({
+        const item = await prisma.itemInCart.create({
           data: {
             cart: {
               connectOrCreate: { where: { userId }, create: { userId } },

@@ -1,5 +1,6 @@
 import { NextApiResponse, NextApiRequest } from "next";
 import { getServerAuthSession } from "../../../../server/common/get-server-auth-session";
+import { prisma } from "../../../../server/db/client";
 
 const OrderHandler = async (req: NextApiRequest, res: NextApiResponse) => {
   const session = await getServerAuthSession({ req, res });
@@ -11,7 +12,7 @@ const OrderHandler = async (req: NextApiRequest, res: NextApiResponse) => {
   const userId = session.user.id;
   switch (req.method) {
     case "GET":
-      const orders = await prisma?.order.findMany({
+      const orders = await prisma.order.findMany({
         where: { userId },
         include: { product: true },
       });

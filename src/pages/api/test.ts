@@ -1,9 +1,10 @@
 import { CATEGORY_TYPE } from "@prisma/client";
+import { prisma } from "../../server/db/client";
 
 const testHandler = async (req, res) => {
-  let category = await prisma?.category.findMany({});
+  let category = await prisma.category.findMany({});
   if (category?.length === 0) {
-    await prisma?.category.createMany({
+    await prisma.category.createMany({
       data: [
         { name: "Electronics" },
         { name: "Housing" },
@@ -14,7 +15,7 @@ const testHandler = async (req, res) => {
         { name: "MainPage-Deals" },
       ],
     });
-    category = await prisma?.category.findMany({});
+    category = await prisma.category.findMany({});
   }
 
   const electronics = category?.find((e) => e.name === "Electronics");
@@ -23,7 +24,7 @@ const testHandler = async (req, res) => {
   const clothing = category?.find((e) => e.name === "Clothing");
   const mainPage = category?.find((e) => e.name === "MainPage-1");
   const mainPage_Deals = category?.find((e) => e.name === "MainPage-Deals");
-  const products = await prisma?.product.createMany({
+  const products = await prisma.product.createMany({
     data: [
       {
         name: "Ipad",

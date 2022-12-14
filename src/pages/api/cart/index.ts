@@ -1,6 +1,7 @@
 import { OrderStatus } from "@prisma/client";
 import type { NextApiRequest, NextApiResponse } from "next";
 import { getServerAuthSession } from "../../../server/common/get-server-auth-session";
+import { prisma } from "../../../server/db/client";
 
 const cartIndexHandler = async (req: NextApiRequest, res: NextApiResponse) => {
   const session = await getServerAuthSession({ req, res });
@@ -9,7 +10,7 @@ const cartIndexHandler = async (req: NextApiRequest, res: NextApiResponse) => {
 
   switch (req.method) {
     case "GET":
-      const items = await prisma?.itemInCart.findMany({
+      const items = await prisma.itemInCart.findMany({
         where: { userId },
         include: { item: true },
       });
@@ -23,7 +24,7 @@ const cartIndexHandler = async (req: NextApiRequest, res: NextApiResponse) => {
         res.status(400).json({ error: "Cart is empty" });
         return;
       }
-      const dbItems = await prisma?.itemInCart.findMany({ where: { userId } });
+      const dbItems = await prisma.itemInCart.findMany({ where: { userId } });
 
       if (!dbItems || dbItems.length === 0) {
         res.status(400).json({ error: "Cart is empty" });
@@ -53,7 +54,7 @@ const cartIndexHandler = async (req: NextApiRequest, res: NextApiResponse) => {
         return;
       }
 
-      const order = await prisma?.order.createMany({
+      const order = await prisma.order.createMany({
         data: dbItems.map((e) => ({
           productId: e.itemId,
           userId,
@@ -62,7 +63,7 @@ const cartIndexHandler = async (req: NextApiRequest, res: NextApiResponse) => {
         })),
       });
       // { userId: userId, itemId: dbItems.map(e => e.itemId)}
-      await prisma?.itemInCart.deleteMany({
+      await prisma.itemInCart.deleteMany({
         where: { userId, itemId: { in: dbItems.map((e) => e.itemId) } },
       });
 

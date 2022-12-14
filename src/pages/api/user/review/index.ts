@@ -1,5 +1,6 @@
 import { NextApiResponse, NextApiRequest } from "next";
 import { getServerAuthSession } from "../../../../server/common/get-server-auth-session";
+import { prisma } from "../../../../server/db/client";
 
 const ReviewHandler = async (req: NextApiRequest, res: NextApiResponse) => {
   const session = await getServerAuthSession({ req, res });
@@ -11,7 +12,7 @@ const ReviewHandler = async (req: NextApiRequest, res: NextApiResponse) => {
   const userId = session.user.id;
   switch (req.method) {
     case "GET":
-      const review = await prisma?.review.findMany({ where: { userId } });
+      const review = await prisma.review.findMany({ where: { userId } });
       console.log({ review });
       res.json(review);
       break;

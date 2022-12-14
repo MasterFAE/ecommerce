@@ -1,4 +1,5 @@
 import argon2 from "argon2";
+import { prisma } from "../../server/db/client";
 
 const RegisterHandler = async (req, res) => {
   switch (req.method) {
@@ -10,7 +11,7 @@ const RegisterHandler = async (req, res) => {
         res.status(400).json({ error: "Invalid credentials" });
         return;
       }
-      const duplicate = await prisma?.user.findMany({
+      const duplicate = await prisma.user.findMany({
         where: { OR: [{ email }, { phoneNumber }] },
       });
       if (duplicate?.length > 0) {
@@ -20,7 +21,7 @@ const RegisterHandler = async (req, res) => {
         return;
       }
       const maskedPassword = await argon2.hash(password);
-      const user = await prisma?.user.create({
+      const user = await prisma.user.create({
         data: {
           email,
           password: maskedPassword,

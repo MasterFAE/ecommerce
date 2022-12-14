@@ -1,12 +1,13 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { getServerAuthSession } from "../../../server/common/get-server-auth-session";
+import { prisma } from "../../../server/db/client";
 
 const userHandler = async (req: NextApiRequest, res: NextApiResponse) => {
   const session = await getServerAuthSession({ req, res });
 
   switch (req.method) {
     case "GET":
-      const user = await prisma?.user.findFirst({
+      const user = await prisma.user.findFirst({
         where: { email: session?.user?.email },
         include: { cart: true },
       });
@@ -19,7 +20,7 @@ const userHandler = async (req: NextApiRequest, res: NextApiResponse) => {
       break;
 
     case "POST":
-
+      break;
     default:
       break;
   }

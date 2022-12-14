@@ -1,4 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
+import { prisma } from "../../../server/db/client";
 
 const categoryIndexHandler = async (
   req: NextApiRequest,
@@ -6,7 +7,7 @@ const categoryIndexHandler = async (
 ) => {
   switch (req.method) {
     case "GET":
-      const categories = await prisma?.category.findMany({
+      const categories = await prisma.category.findMany({
         take: 10,
       });
       res.json(categories);
