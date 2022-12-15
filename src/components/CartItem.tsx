@@ -2,19 +2,22 @@ import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { FaTrash } from "react-icons/fa";
 import Image from "next/image";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   CartItemResponse,
   deleteItem,
+  localDeleteItem,
+  localUpdateItem,
   updateQuantity,
 } from "../redux/cart/cartSlice";
 
 type Props = {
   data: CartItemResponse;
+  loggedIn: boolean;
 };
 
 const CartItem = (props: Props) => {
-  const { data } = props;
+  const { data, loggedIn } = props;
   const [quantity, setQuantity] = useState(0);
   const [quantityButton, setQuantityButton] = useState(false);
   const dispatch = useDispatch();
@@ -41,27 +44,26 @@ const CartItem = (props: Props) => {
 
   const changeQuantity = async () => {
     if (!quantity) {
-      //Throw error quantity cannot be empty
       alert("Quantity can not be empty.");
       return;
     }
-
-    dispatch(updateQuantity({ itemId: data.itemId, quantity }));
+    if (loggedIn) {
+      dispatch(updateQuantity({ itemId: data.itemId, quantity }));
+    } else {
+      dispatch(localUpdateItem({ id: data.item.id, quantity }));
+    }
     setQuantityButton(false);
   };
 
   const _deleteItem = async () => {
     const _alert = confirm("Do you want to delete this item?");
     if (_alert) {
-      dispatch(deleteItem(data.itemId));
+      if (loggedIn) {
+        dispatch(deleteItem(data.itemId));
+      } else {
+        dispatch(localDeleteItem({ id: data.item.id }));
+      }
       setQuantityButton(false);
-    }
-  };
-
-  const continueToPayment = async () => {
-    if (quantityButton) {
-      alert("Please confirm latest changes.");
-      return;
     }
   };
 

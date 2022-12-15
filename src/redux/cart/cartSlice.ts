@@ -71,31 +71,34 @@ const cartSlice = createSlice({
   name: "cart",
   initialState,
   reducers: {
-    localGetItems(state) {
-      state.items = JSON.parse(localStorage.getItem("cart")) || [];
-      state.total = calculateTotal(state.items).total;
-    },
     addItem(state, action: PayloadAction<CartItemResponse>) {
       state.items = [...state.items, action.payload];
       state.total = calculateTotal(state.items).total;
     },
+    localGetItems(state) {
+      state.items = JSON.parse(localStorage.getItem("cart")) || [];
+      state.total = calculateTotal(state.items).total;
+    },
     localAddItem(state, action: PayloadAction<CartItemResponse>) {
+      delete action.payload.item._count;
       state.items = [...state.items, action.payload];
       state.total = calculateTotal(state.items).total;
       localStorage.setItem("cart", JSON.stringify(state.items));
     },
     localUpdateItem(state, action) {
       state.items = state.items.map((e) => {
-        if (e.id === action.payload.id) {
-          e.quantity += action.payload.quantity;
+        if (e.item.id == action.payload.id) {
+          e.quantity = action.payload.quantity;
         }
         return e;
       });
       state.total = calculateTotal(state.items).total;
+      localStorage.setItem("cart", JSON.stringify(state.items));
     },
     localDeleteItem(state, action) {
-      state.items = state.items.filter((e) => e.itemId !== action.payload.id);
+      state.items = state.items.filter((e) => e.item.id != action.payload.id);
       state.total = calculateTotal(state.items).total;
+      localStorage.setItem("cart", JSON.stringify(state.items));
     },
     clearCart(state) {
       state = initialState;
@@ -127,7 +130,6 @@ const cartSlice = createSlice({
 });
 
 const calculateTotal = (items) => {
-  console.log(items);
   let total = 0;
   let deal = 0;
   items.forEach((element) => {

@@ -49,7 +49,6 @@ const Register = (props: Props) => {
   const { csrfToken } = props;
 
   const handleSubmit = async (e) => {
-    console.log({ e });
     const response = await fetch(`/api/register`, {
       method: "POST",
       body: JSON.stringify(e),
@@ -64,7 +63,7 @@ const Register = (props: Props) => {
 
   return (
     <Layout>
-      <div className="mt-[1%] flex">
+      <div className="mt-[5vh] flex">
         <Formik
           validationSchema={SignupSchema}
           initialValues={{
@@ -77,8 +76,6 @@ const Register = (props: Props) => {
           onSubmit={handleSubmit}
         >
           <Form className="md:1/2 m-auto flex h-fit w-full flex-col justify-center self-center rounded-xl border bg-white p-4 shadow-xl lg:p-16 xl:w-3/5">
-            <div className="mb-4 h-28 w-28 self-center rounded-full bg-violet-700 ring ring-violet-200" />
-
             <input
               readOnly={true}
               name="csrfToken"

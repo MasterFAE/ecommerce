@@ -27,7 +27,6 @@ const Navbar = (props: Props) => {
     for (let i = 0; i < cart.items.length; i++) {
       itemQuantity += cart.items[i]?.quantity;
     }
-    console.log({ itemQuantity });
     setTotalItems(itemQuantity);
   }, [cart.items]);
 

@@ -1,10 +1,10 @@
 import Router from "next/router";
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import CartItem from "../../components/CartItem";
 import Layout from "../../components/Layout";
 import calculateTotal from "../../lib/calculateTotal";
-import { CartItemResponse } from "../../redux/cart/cartSlice";
+import { CartItemResponse, getCartItems } from "../../redux/cart/cartSlice";
 import { storeType } from "../../redux/store";
 
 type Props = {};
@@ -12,7 +12,11 @@ type Props = {};
 const transportCost = 35;
 
 const Cart = (props: Props) => {
-  const { items } = useSelector((state: storeType) => state.cart);
+  const {
+    cart: { items },
+    user,
+  } = useSelector((state: storeType) => state);
+  const dispatch = useDispatch();
 
   const [total, setTotal] = useState(0);
   const [deal, setDeal] = useState(0);
@@ -23,21 +27,32 @@ const Cart = (props: Props) => {
     setDeal(_deal);
   }, [items]);
 
-  const ReDirectPhase2 = () => {
-    Router.push("cart/checkout");
+  const clearItems = async () => {
+    await fetch("/api/cart", { method: "DELETE" });
+    dispatch(getCartItems());
   };
 
   return (
     <Layout>
       <div className="grid gap-x-2 md:grid-cols-12">
         <div className="flex flex-col gap-y-1 rounded-md py-4 sm:p-4 md:col-span-9">
-          <h1 className="text-2xl font-semibold text-neutral-800">
-            {items.length} Items
-          </h1>
+          <div className="flex flex-row items-center justify-between">
+            <h1 className="w-full text-2xl font-semibold text-neutral-800">
+              {items.length} Items
+            </h1>
+            {items.length > 0 && (
+              <h4
+                onClick={clearItems}
+                className="cursor-pointer text-sm hover:underline"
+              >
+                Clear
+              </h4>
+            )}
+          </div>
           {items.length > 0 ? (
             <>
               {items.map((e: CartItemResponse) => {
-                return <CartItem data={e} />;
+                return <CartItem data={e} loggedIn={user.loggedIn} />;
               })}
             </>
           ) : (
@@ -79,12 +94,24 @@ const Cart = (props: Props) => {
                   </p>
                 </div>
               </div>
-              {items.length > 0 && (
+              {user.loggedIn ? (
+                <>
+                  {" "}
+                  {items.length > 0 && (
+                    <button
+                      onClick={() => Router.push("cart/checkout")}
+                      className="mt-2 rounded-lg bg-green-600 p-1 text-lg text-white transition-all hover:bg-green-700 focus:bg-green-700"
+                    >
+                      Continue
+                    </button>
+                  )}
+                </>
+              ) : (
                 <button
-                  onClick={ReDirectPhase2}
+                  onClick={() => Router.push("/login")}
                   className="mt-2 rounded-lg bg-green-600 p-1 text-lg text-white transition-all hover:bg-green-700 focus:bg-green-700"
                 >
-                  Continue
+                  Log in
                 </button>
               )}
             </>

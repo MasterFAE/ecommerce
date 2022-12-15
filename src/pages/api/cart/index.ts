@@ -16,22 +16,21 @@ const cartIndexHandler = async (req: NextApiRequest, res: NextApiResponse) => {
       });
       res.json({ items });
       break;
-
+    case "DELETE":
+      await prisma.itemInCart.deleteMany({ where: { userId } });
+      res.json({ message: "OK." });
+      break;
     case "POST":
       const { items: _items } = JSON.parse(req.body);
-
       if (_items.length === 0) {
         res.status(400).json({ error: "Cart is empty" });
         return;
       }
       const dbItems = await prisma.itemInCart.findMany({ where: { userId } });
-
       if (!dbItems || dbItems.length === 0) {
         res.status(400).json({ error: "Cart is empty" });
         return;
       }
-
-      // Check total price
 
       // Compare 2 arrays if they're same
       // Compare total with db price if theyre same
@@ -73,7 +72,6 @@ const cartIndexHandler = async (req: NextApiRequest, res: NextApiResponse) => {
         });
         return;
       }
-
       res.json({ message: "OK." });
       break;
   }

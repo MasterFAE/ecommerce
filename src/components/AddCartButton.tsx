@@ -102,11 +102,22 @@ const AddCartButton = (props: Props) => {
       dispatch(addItem(data.item));
       statusChanger(ADDCARTSTATUS.SUCCESSFUL);
     } else {
-      let result = items.findIndex((item) => item.itemId === product.id);
-      if (result > 0) {
-        dispatch(localUpdateItem({ id: product.id, quantity: 1 }));
+      let result = items.findIndex((item) => item.item.id === product.id);
+      console.log({ result });
+      if (result >= 0) {
+        dispatch(
+          localUpdateItem({
+            id: product.id,
+            quantity: items[result]?.quantity + 1 || 1,
+          })
+        );
       } else {
-        dispatch(localAddItem({ item: product, quantity: 1 }));
+        dispatch(
+          localAddItem({
+            item: product,
+            quantity: 1,
+          })
+        );
       }
 
       statusChanger(ADDCARTSTATUS.SUCCESSFUL);

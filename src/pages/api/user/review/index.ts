@@ -13,7 +13,6 @@ const ReviewHandler = async (req: NextApiRequest, res: NextApiResponse) => {
   switch (req.method) {
     case "GET":
       const review = await prisma.review.findMany({ where: { userId } });
-      console.log({ review });
       res.json(review);
       break;
   }
