@@ -19,7 +19,7 @@ const AccountLayout = (props: Props) => {
   }
   return (
     <Layout>
-      <div className="grid h-[100vh]  grid-cols-8 gap-x-4">
+      <div className="grid min-h-[100vh]  grid-cols-8 gap-x-4">
         <div className="col-span-2 hidden h-full border-r md:flex">
           <div className="flex w-full list-none flex-col gap-y-1 p-4">
             <div className="w-full border-l-neutral-400">
