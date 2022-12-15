@@ -14,7 +14,10 @@ import Loading from "../../components/Loading";
 type Props = {};
 
 const CartPhase2 = (props: Props) => {
-  const { items, isLoading } = useSelector((state: storeType) => state.cart);
+  const {
+    cart: { items, isLoading },
+    user,
+  } = useSelector((state: storeType) => state);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [total, setTotal] = useState(0);
@@ -32,6 +35,10 @@ const CartPhase2 = (props: Props) => {
     "exp-date": "",
     cvc: "",
   });
+
+  useEffect(() => {
+    if (!user.loading && !user.loggedIn) Router.push("/cart");
+  }, []);
 
   useEffect(() => {
     if (items.length == 0 && !isLoading) Router.push("/cart");
