@@ -266,7 +266,7 @@ const CartPhase2 = (props: Props) => {
             </div>
           </div>
         </div>
-        <div className="flex max-h-[40vh] flex-col gap-y-1 rounded-md md:col-span-9">
+        <div className="flex  flex-col gap-y-1 rounded-md md:col-span-9">
           <h1 className="text-xl font-semibold text-neutral-800">
             Total: {total.toFixed(2)} ₺ ({items.length} items)
           </h1>

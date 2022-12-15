@@ -60,7 +60,7 @@ const ProductCard = (props: Props) => {
           <h1 className="price-tag flex w-full items-center gap-x-1 ">
             {product.price.toFixed(2)} ₺
           </h1>
-          <AddCartButton text="Add to Cart" size="sm" id={product.id} />
+          <AddCartButton product={product} />
         </div>
         {/* <div className="self-center rounded-full bg-red-500 p-1 px-2">
             <h4 className="text-center text-xs font-bold text-neutral-50">

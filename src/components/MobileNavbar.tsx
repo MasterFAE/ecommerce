@@ -36,22 +36,13 @@ const MobileNavbar = (props: Props) => {
               </div>
             </button>
           </Link>
-          {user.loggedIn ? (
-            // <Link href={"/account"}>
-            <button
-              onClick={() => setModal(true)}
-              className="rounded-lg p-1 text-lg text-neutral-200 transition-colors hover:text-neutral-400 focus:bg-neutral-700 focus:text-neutral-400"
-            >
-              <FaBars></FaBars>
-            </button>
-          ) : (
-            // </Link>
-            <Link href={"/login"}>
-              <button className="rounded-lg p-1 text-lg text-neutral-200 transition-colors hover:text-neutral-400 focus:bg-neutral-700 focus:text-neutral-400">
-                <MdOutlineLogin></MdOutlineLogin>
-              </button>
-            </Link>
-          )}
+
+          <button
+            onClick={() => setModal(true)}
+            className="rounded-lg p-1 text-lg text-neutral-200 transition-colors hover:text-neutral-400 focus:bg-neutral-700 focus:text-neutral-400"
+          >
+            <FaBars></FaBars>
+          </button>
         </div>
       </header>
     </div>

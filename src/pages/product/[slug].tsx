@@ -66,7 +66,7 @@ const ProductPage = (props: Props) => {
                 </h1>
               </div>
               <div className="flex flex-row justify-between gap-x-4">
-                <AddCartButton text="Add to Cart" id={data.id} />
+                <AddCartButton id={data} />
               </div>
             </div>
           </div>

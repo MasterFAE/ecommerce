@@ -16,10 +16,20 @@ const Navbar = (props: Props) => {
   const { user, cart } = useSelector((state: storeType) => state);
   const [searchItems, setSearchItems] = useState([]);
   const [searchText, setSearchText] = useState("");
+  const [totalItems, setTotalItems] = useState(0);
   const { data: category_data, error: category_error } = useSWR(
     `/api/category/type/${CATEGORY_TYPE.HEADER}`,
     fetcher
   );
+
+  useEffect(() => {
+    let itemQuantity = 0;
+    for (let i = 0; i < cart.items.length; i++) {
+      itemQuantity += cart.items[i]?.quantity;
+    }
+    console.log({ itemQuantity });
+    setTotalItems(itemQuantity);
+  }, [cart.items]);
 
   const searchAction = async () => {
     if (searchText.length <= 1) return;
@@ -111,7 +121,7 @@ const Navbar = (props: Props) => {
                 <h1 className="hidden lg:block">Cart</h1>
                 <FaShoppingCart className="block text-neutral-700 lg:hidden" />
                 <div className="rounded-full bg-yellow-400 px-2 py-1 text-xs font-bold text-neutral-700 ring-1 ring-yellow-500">
-                  {cart.items.length}
+                  {totalItems}
                 </div>
               </div>
             </Link>

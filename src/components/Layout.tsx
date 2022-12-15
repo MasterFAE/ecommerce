@@ -3,8 +3,9 @@ import { useSession } from "next-auth/react";
 import Head from "next/head";
 import { Router } from "next/router";
 import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { getCartItems } from "../redux/cart/cartSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { getCartItems, localGetItems } from "../redux/cart/cartSlice";
+import { storeType } from "../redux/store";
 import { clearUser, getCurrentUser } from "../redux/user/userSlice";
 import MobileNavbar from "./MobileNavbar";
 import Navbar from "./Navbar";
@@ -16,10 +17,19 @@ type Props = {
 const Layout = (props: Props) => {
   const session = useSession();
   const dispatch = useDispatch<any>();
+  const { user, cart } = useSelector((state: storeType) => state);
+
+  useEffect(() => {
+    if (user.loading) return;
+    if (user.loggedIn) {
+      dispatch(getCartItems());
+    } else {
+      dispatch(localGetItems());
+    }
+  }, [user.loading]);
   useEffect(() => {
     if (session.status != "loading" && session.data) {
       dispatch(getCurrentUser());
-      dispatch(getCartItems());
     }
     if (session.status == "unauthenticated") dispatch(clearUser());
   }, [session]);

@@ -71,10 +71,31 @@ const cartSlice = createSlice({
   name: "cart",
   initialState,
   reducers: {
+    localGetItems(state) {
+      state.items = JSON.parse(localStorage.getItem("cart")) || [];
+      state.total = calculateTotal(state.items).total;
+    },
     addItem(state, action: PayloadAction<CartItemResponse>) {
       state.items = [...state.items, action.payload];
-      state.total += action.payload.quantity * action.payload.item.price;
-      console.log(state.items.length);
+      state.total = calculateTotal(state.items).total;
+    },
+    localAddItem(state, action: PayloadAction<CartItemResponse>) {
+      state.items = [...state.items, action.payload];
+      state.total = calculateTotal(state.items).total;
+      localStorage.setItem("cart", JSON.stringify(state.items));
+    },
+    localUpdateItem(state, action) {
+      state.items = state.items.map((e) => {
+        if (e.id === action.payload.id) {
+          e.quantity += action.payload.quantity;
+        }
+        return e;
+      });
+      state.total = calculateTotal(state.items).total;
+    },
+    localDeleteItem(state, action) {
+      state.items = state.items.filter((e) => e.itemId !== action.payload.id);
+      state.total = calculateTotal(state.items).total;
     },
     clearCart(state) {
       state = initialState;
@@ -93,27 +114,40 @@ const cartSlice = createSlice({
       state.items = action.payload.items;
       let { total, deal } = calculateTotal(state.items);
       state.total = total;
-      state.total = deal;
+      // state.total = deal;
       state.isLoading = false;
     });
     builder.addCase(deleteItem.fulfilled, (state, action) => {
       state.items = state.items.filter((e) => e.itemId !== action.payload.id);
       let { total, deal } = calculateTotal(state.items);
       state.total = total;
-      state.total = deal;
+      // state.total = deal;
     });
   },
 });
 
 const calculateTotal = (items) => {
+  console.log(items);
   let total = 0;
   let deal = 0;
   items.forEach((element) => {
-    total += element.item.price * element.quantity;
-    deal += (element.item.price * element.quantity * element.item.deal) / 100;
+    if (element.item) {
+      total += element.item.price * element.quantity;
+      deal += (element.item.price * element.quantity * element.item.deal) / 100;
+    } else {
+      total += element.price * element.quantity;
+      deal += (element.price * element.quantity * element.deal) / 100;
+    }
   });
   return { total, deal };
 };
 
-export const { clearCart, addItem } = cartSlice.actions;
+export const {
+  clearCart,
+  addItem,
+  localAddItem,
+  localDeleteItem,
+  localUpdateItem,
+  localGetItems,
+} = cartSlice.actions;
 export default cartSlice.reducer;

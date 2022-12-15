@@ -1,18 +1,22 @@
 import { CATEGORY_TYPE } from "@prisma/client";
+import { signOut } from "next-auth/react";
 import Link from "next/link";
 import Router from "next/router";
 import React, { useState } from "react";
 import { FaUser } from "react-icons/fa";
 import { ImSearch } from "react-icons/im";
 import { IoMdClose } from "react-icons/io";
+import { useSelector } from "react-redux";
 import useSWR from "swr";
 import fetcher from "../lib/fetcher";
-import NavbarSearchItem from "./NavbarSearchItem";
+import { storeType } from "../redux/store";
+
 type Props = {
   setModal: any;
 };
 
 const MobileAccountDetailsNav = (props: Props) => {
+  const user = useSelector((state: storeType) => state.user);
   const [searchText, setSearchText] = useState("");
   const searchAction = (e) => {
     Router.push(`/product/${searchText.toLowerCase()}`);
@@ -50,29 +54,6 @@ const MobileAccountDetailsNav = (props: Props) => {
             required
           />
         </div>
-        {/* Account */}
-        <div className="flex flex-col">
-          <div className="flex w-fit flex-row gap-x-2 text-sm font-light text-neutral-400">
-            <FaUser></FaUser>Account
-          </div>
-          <div className="ml-8">
-            <Link href={"/account"}>
-              <div onClick={() => props.setModal(false)}>Account Details</div>
-            </Link>
-            <Link href={"/account/cards"}>
-              <div onClick={() => props.setModal(false)}>Cards</div>
-            </Link>
-            <Link href={"/account/orders"}>
-              <div onClick={() => props.setModal(false)}>Orders</div>
-            </Link>
-            <Link href={"/account/reviews"}>
-              <div onClick={() => props.setModal(false)}>Reviews</div>
-            </Link>
-            <Link href={"/account/tickets"}>
-              <div onClick={() => props.setModal(false)}>Tickets</div>
-            </Link>
-          </div>
-        </div>
         {/* Category */}
         <div className="flex flex-col">
           <div className="flex w-fit flex-row gap-x-2 text-sm font-light text-neutral-400">
@@ -84,6 +65,49 @@ const MobileAccountDetailsNav = (props: Props) => {
                 <div onClick={() => props.setModal(false)}>{item.name}</div>
               </Link>
             ))}
+          </div>
+        </div>
+        {/* Account */}
+        <div className="flex flex-col">
+          <div className="flex w-fit flex-row gap-x-2 text-sm font-light text-neutral-400">
+            <FaUser></FaUser>Account
+          </div>
+          <div className="ml-8">
+            {user.loggedIn ? (
+              <>
+                <Link href={"/account"}>
+                  <div onClick={() => props.setModal(false)}>
+                    Account Details
+                  </div>
+                </Link>
+                <Link href={"/account/cards"}>
+                  <div onClick={() => props.setModal(false)}>Cards</div>
+                </Link>
+                <Link href={"/account/orders"}>
+                  <div onClick={() => props.setModal(false)}>Orders</div>
+                </Link>
+                <Link href={"/account/reviews"}>
+                  <div onClick={() => props.setModal(false)}>Reviews</div>
+                </Link>
+                <Link href={"/account/tickets"}>
+                  <div onClick={() => props.setModal(false)}>Tickets</div>
+                </Link>
+                <Link href={"/account/tickets"}>
+                  <div
+                    onClick={() => {
+                      props.setModal(false);
+                      signOut();
+                    }}
+                  >
+                    Sign Out
+                  </div>
+                </Link>
+              </>
+            ) : (
+              <Link href={"/login"}>
+                <div onClick={() => props.setModal(false)}>Sign In</div>
+              </Link>
+            )}
           </div>
         </div>
       </div>

@@ -1,22 +1,30 @@
+import { Product } from "@prisma/client";
 import React, { useState } from "react";
 import { FaShoppingCart, FaExclamation } from "react-icons/fa";
 import { MdDone } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
-import { addItem, updateQuantity } from "../redux/cart/cartSlice";
+import {
+  localAddItem,
+  localUpdateItem,
+  addItem,
+  updateQuantity,
+} from "../redux/cart/cartSlice";
 import { storeType } from "../redux/store";
 import ADDCARTSTATUS from "../types/addCartStatusType";
-import Loading from "./Loading";
 
 type Props = {
-  id: number;
-  quantity?: number | 1;
-  text?: string;
+  product: Product;
 };
 
 const AddCartButton = (props: Props) => {
+  const { product } = props;
+
   const [status, setStatus] = useState(ADDCARTSTATUS.DEFAULT);
   const dispatch = useDispatch();
-  const items = useSelector((state: storeType) => state.cart.items);
+  const {
+    cart: { items },
+    user,
+  } = useSelector((state: storeType) => state);
 
   const renderStatus = (_status: ADDCARTSTATUS) => {
     switch (_status) {
@@ -68,27 +76,41 @@ const AddCartButton = (props: Props) => {
   const addToCart = async (e) => {
     statusChanger(ADDCARTSTATUS.LOADING);
     e.preventDefault();
-    let item = items.findIndex((x) => x.itemId === props.id);
-    if (item !== -1) {
-      dispatch(
-        updateQuantity({
-          itemId: props.id,
-          quantity: items[item].quantity + 1,
-        })
-      );
-      statusChanger(ADDCARTSTATUS.SUCCESSFUL);
-      return;
-    }
-    const request = await fetch(`/api/cart/${props.id}`, { method: "POST" });
-    const data = await request.json();
+    if (user.loggedIn) {
+      let item = items.findIndex((x) => x.itemId === product.id);
+      if (item !== -1) {
+        dispatch(
+          //@ts-ignore
+          updateQuantity({
+            itemId: product.id,
+            quantity: items[item].quantity + 1,
+          })
+        );
+        statusChanger(ADDCARTSTATUS.SUCCESSFUL);
+        return;
+      }
+      const request = await fetch(`/api/cart/${product.id}`, {
+        method: "POST",
+      });
+      const data = await request.json();
 
-    if (!request.ok) {
-      //throw system error
-      statusChanger(ADDCARTSTATUS.FAILED);
-      return;
+      if (!request.ok) {
+        //throw system error
+        statusChanger(ADDCARTSTATUS.FAILED);
+        return;
+      }
+      dispatch(addItem(data.item));
+      statusChanger(ADDCARTSTATUS.SUCCESSFUL);
+    } else {
+      let result = items.findIndex((item) => item.itemId === product.id);
+      if (result > 0) {
+        dispatch(localUpdateItem({ id: product.id, quantity: 1 }));
+      } else {
+        dispatch(localAddItem({ item: product, quantity: 1 }));
+      }
+
+      statusChanger(ADDCARTSTATUS.SUCCESSFUL);
     }
-    dispatch(addItem(data.item));
-    statusChanger(ADDCARTSTATUS.SUCCESSFUL);
   };
   return (
     <button
