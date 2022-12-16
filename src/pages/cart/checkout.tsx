@@ -397,14 +397,10 @@ const CartPhase2 = (props: Props) => {
           <div className="flex justify-center">
             <button
               // disabled={loading}
-              onClick={proceedPayment}
+              type="submit"
               className="mt-2 flex w-[40rem] justify-center rounded-lg bg-green-600 p-1 text-lg text-white transition-all hover:bg-green-700 focus:bg-green-700"
             >
-              {loading ? (
-                <Loading color="fill-neutral-800" />
-              ) : (
-                "Place the Order"
-              )}
+              {loading ? <Loading color="fill-green-900" /> : "Place the Order"}
             </button>
           </div>
         </div>
