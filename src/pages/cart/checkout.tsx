@@ -195,6 +195,7 @@ const CartPhase2 = (props: Props) => {
                 <div className="flex flex-col gap-y-1">
                   <label htmlFor="province">Province</label>
                   <Field
+                    name="province"
                     id="province"
                     placeholder="Province"
                     className="rounded-lg border p-2 outline-none"
@@ -210,6 +211,7 @@ const CartPhase2 = (props: Props) => {
                     )}
                   </ErrorMessage>
                   <Field
+                    name="town"
                     id="town"
                     placeholder="District"
                     className="rounded-lg border p-2 outline-none"
@@ -225,8 +227,9 @@ const CartPhase2 = (props: Props) => {
                     )}
                   </ErrorMessage>
                   <Field
+                    name="name"
                     id="name"
-                    placeholder="Delivery Name"
+                    placeholder="John Doe"
                     className="rounded-lg border p-2 outline-none"
                   />
                 </div>
@@ -240,6 +243,7 @@ const CartPhase2 = (props: Props) => {
                     )}
                   </ErrorMessage>
                   <Field
+                    name="postal"
                     id="postal"
                     placeholder="Zip Code"
                     className="rounded-lg border p-2 outline-none"
@@ -256,6 +260,7 @@ const CartPhase2 = (props: Props) => {
                   </ErrorMessage>
                   <Field
                     as="textarea"
+                    name="address"
                     id="address"
                     placeholder="Address"
                     rows={7}
@@ -300,6 +305,7 @@ const CartPhase2 = (props: Props) => {
                   </ErrorMessage>
                   <Field
                     id="cardnumber"
+                    name="cardnumber"
                     // value={
                     //   card.cardnumber.length > 0
                     //     ? renderCardNo(card.cardnumber)
@@ -320,6 +326,7 @@ const CartPhase2 = (props: Props) => {
                   </ErrorMessage>
                   <Field
                     id="ccname"
+                    name="ccname"
                     placeholder="John Doe"
                     className="rounded-lg border p-2 outline-none"
                   />
@@ -336,6 +343,7 @@ const CartPhase2 = (props: Props) => {
                   </ErrorMessage>
                   <Field
                     id="exp-date"
+                    name="exp-date"
                     placeholder="11/29"
                     className="rounded-lg border p-2 outline-none"
                   />
@@ -350,6 +358,7 @@ const CartPhase2 = (props: Props) => {
                     )}
                   </ErrorMessage>
                   <Field
+                    name="cvc"
                     id="cvc"
                     placeholder="000"
                     className="rounded-lg border p-2 outline-none"
