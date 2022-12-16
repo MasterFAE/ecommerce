@@ -1,5 +1,5 @@
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   FaBars,
   FaDoorOpen,
@@ -17,6 +17,16 @@ type Props = {};
 const MobileNavbar = (props: Props) => {
   const [userModal, setModal] = useState(false);
   const { user, cart } = useSelector((state: storeType) => state);
+  const [totalItems, setTotalItems] = useState(0);
+
+  useEffect(() => {
+    let itemQuantity = 0;
+    for (let i = 0; i < cart.items.length; i++) {
+      itemQuantity += cart.items[i]?.quantity;
+    }
+    setTotalItems(itemQuantity);
+  }, [cart.items]);
+
   return (
     <div className="sm:hidden">
       {userModal && (
@@ -32,7 +42,7 @@ const MobileNavbar = (props: Props) => {
             <button className="flex rounded-lg p-1 text-lg text-neutral-200 transition-colors hover:text-neutral-400 focus:bg-neutral-700 focus:text-neutral-400">
               <FaShoppingCart />
               <div className="-ml-2 -mt-2 rounded-lg bg-orange-500 px-1 text-xs text-white">
-                {cart.items.length}
+                {totalItems}
               </div>
             </button>
           </Link>

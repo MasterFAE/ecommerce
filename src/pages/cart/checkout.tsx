@@ -11,7 +11,7 @@ import masterCardImage from "../../../public/img/mastercard.png";
 import Router from "next/router";
 import Loading from "../../components/Loading";
 import * as Yup from "yup";
-import { ErrorMessage, Field, Formik } from "formik";
+import { ErrorMessage, Field, Form, Formik } from "formik";
 
 type Props = {};
 
@@ -40,13 +40,6 @@ const CartPhase2 = (props: Props) => {
   const [error, setError] = useState("");
   const [total, setTotal] = useState(0);
 
-  const [address, setAddress] = useState({
-    province: "",
-    name: "",
-    town: "",
-    postal: "",
-    address: "",
-  });
   const [card, setCard] = useState({
     cardnumber: "",
     ccname: "",
@@ -170,7 +163,7 @@ const CartPhase2 = (props: Props) => {
         }}
         onSubmit={proceedPayment}
       >
-        <div className="flex w-full flex-col gap-y-4 text-neutral-700">
+        <Form className="flex w-full flex-col gap-y-4 text-neutral-700">
           <div className="mb-0">
             <h1 className="text-2xl font-medium text-neutral-800">Check Out</h1>
           </div>
@@ -403,7 +396,7 @@ const CartPhase2 = (props: Props) => {
               {loading ? <Loading color="fill-green-900" /> : "Place the Order"}
             </button>
           </div>
-        </div>
+        </Form>
       </Formik>
     </Layout>
   );
