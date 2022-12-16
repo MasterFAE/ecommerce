@@ -21,7 +21,8 @@ const cartIndexHandler = async (req: NextApiRequest, res: NextApiResponse) => {
       res.json({ message: "OK." });
       break;
     case "POST":
-      const { items: _items } = JSON.parse(req.body);
+      // data is loaded with address and card details
+      const { items: _items, data } = JSON.parse(req.body);
       if (_items.length === 0) {
         res.status(400).json({ error: "Cart is empty" });
         return;
