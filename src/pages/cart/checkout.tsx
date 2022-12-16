@@ -15,7 +15,7 @@ import { ErrorMessage, Field, Form, Formik } from "formik";
 
 type Props = {};
 
-const checkOutSchema = {
+const checkOutSchema = Yup.object().shape({
   province: Yup.string().required("Required field").max(150, "Too long"),
   name: Yup.string().required("Required field").max(200, "Too long"),
   town: Yup.string().required("Required field").max(150, "Too long"),
@@ -29,7 +29,7 @@ const checkOutSchema = {
     .required("Required field")
     .length(5, "Invalid length"),
   cvc: Yup.string().required("Required field").length(3, "Invalid length"),
-};
+});
 
 const CartPhase2 = (props: Props) => {
   const {
@@ -90,6 +90,7 @@ const CartPhase2 = (props: Props) => {
   };
 
   const proceedPayment = async (data) => {
+    console.log({ data });
     setLoading(true);
     // const {
     //   cardnumber,
@@ -187,6 +188,13 @@ const CartPhase2 = (props: Props) => {
               <div className="grid grid-cols-2 gap-3">
                 <div className="flex flex-col gap-y-1">
                   <label htmlFor="province">Province</label>
+                  <ErrorMessage name="province" component="div">
+                    {(msg) => (
+                      <div className="text-sm font-medium text-red-600">
+                        {msg}
+                      </div>
+                    )}
+                  </ErrorMessage>
                   <Field
                     name="province"
                     id="province"
@@ -389,7 +397,7 @@ const CartPhase2 = (props: Props) => {
           )}
           <div className="flex justify-center">
             <button
-              // disabled={loading}
+              disabled={loading}
               type="submit"
               className="mt-2 flex w-[40rem] justify-center rounded-lg bg-green-600 p-1 text-lg text-white transition-all hover:bg-green-700 focus:bg-green-700"
             >
