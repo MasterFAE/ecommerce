@@ -31,13 +31,13 @@ const ProductPage = (props: Props) => {
       <title>FAE - {data.name}</title>
       <meta
         name="description"
-        content={`Purchase ${data.name} for only ${data.price}$`}
+        content={`Purchase ${data.name} for only ${data.price.toFixed(2)} ₺`}
         key="desc"
       />
       <meta property="og:title" content={`${data.name}`} />
       <meta
         property="og:description"
-        content={`Purchase ${data.name} for only ${data.price}$`}
+        content={`Purchase ${data.name} for only ${data.price.toFixed(2)} ₺`}
       />
       <meta property="og:image" content={data.coverImage} />
     </Head>

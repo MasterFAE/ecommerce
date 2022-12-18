@@ -24,10 +24,6 @@ const Address = (props: Props) => {
         </div>
         <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
           <AddressItem></AddressItem>
-          <AddressItem></AddressItem>
-          <AddressItem></AddressItem>
-          <AddressItem></AddressItem>
-          <AddressItem></AddressItem>
         </div>
       </div>
     </AccountLayout>
