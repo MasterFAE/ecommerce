@@ -52,11 +52,12 @@ const CategorySlugPage = (props: Props) => {
   const head = (
     <Head>
       <title>FAE - {data.name} Category</title> */}
+      <meta property="og:site_name" content="FAE ECOMMERCE" />
+      <meta property="og:title" content={`${data.name}`} />
        <meta
         name="description"
         content={`See the products in ${data.name} category`}
       />
-      <meta property="og:title" content={`${data.name}`} />
       <meta
         property="og:description"
         content={`See the products in ${data.name} category`}

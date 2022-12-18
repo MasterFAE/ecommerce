@@ -59,6 +59,7 @@ const Layout = (props: Props) => {
       ) : (
         <Head>
           <title>FAE - ECOMMERCE APP</title>
+          <meta property="og:site_name" content="FAE ECOMMERCE APP" />
           <meta name="description" content="E-Commerce App" />
           <link rel="icon" href="/favicon.ico" />
         </Head>

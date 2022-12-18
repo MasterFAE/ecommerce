@@ -29,12 +29,13 @@ const ProductPage = (props: Props) => {
   const head = (
     <Head>
       <title>FAE - {data.name}</title>
+      <meta property="og:site_name" content="FAE ECOMMERCE APP" />
+      <meta property="og:title" content={`${data.name}`} />
       <meta
         name="description"
         content={`Purchase ${data.name} for only ${data.price.toFixed(2)} ₺`}
         key="desc"
       />
-      <meta property="og:title" content={`${data.name}`} />
       <meta
         property="og:description"
         content={`Purchase ${data.name} for only ${data.price.toFixed(2)} ₺`}
