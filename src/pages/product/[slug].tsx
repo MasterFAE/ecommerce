@@ -8,6 +8,7 @@ import AddCartButton from "../../components/AddCartButton";
 import Layout from "../../components/Layout";
 import LikeButton from "../../components/LikeButton";
 import ReviewStars from "../../components/ReviewStars";
+import Head from "next/head";
 
 type Props = {
   data: Product & { primaryCategory: Category };
@@ -24,11 +25,28 @@ const ProductPage = (props: Props) => {
         </div>
       </Layout>
     );
+
+  const head = (
+    <Head>
+      <title>FAE - {data.name}</title>
+      <meta
+        name="description"
+        content={`Purchase ${data.name} for only ${data.price}$`}
+        key="desc"
+      />
+      <meta property="og:title" content={`${data.name}`} />
+      <meta
+        property="og:description"
+        content={`Purchase ${data.name} for only ${data.price}$`}
+      />
+      <meta property="og:image" content={data.coverImage} />
+    </Head>
+  );
   return (
-    <Layout>
+    <Layout Header={head}>
       <div className="flex h-full flex-col gap-x-10 gap-y-4 lg:flex-row">
         <Image
-          src={data.coverImage || "https://picsum.photos/1080/1080"}
+          src={data.coverImage}
           alt={data.name}
           height={1280}
           width={1080}

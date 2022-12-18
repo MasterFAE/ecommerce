@@ -3,7 +3,7 @@ import { NextPageContext } from "next";
 import React, { useEffect, useState } from "react";
 import Layout from "../../components/Layout";
 import ProductCard from "../../components/ProductCard";
-
+import Head from "next/head";
 type Props = {
   data: Category & {
     primaryProduct: Product[] & { order: Order[]; review: Review[] };
@@ -49,8 +49,23 @@ const CategorySlugPage = (props: Props) => {
     }
   };
 
+  const head = (
+    <Head>
+      <title>FAE - {data.name} Category</title> */}
+       <meta
+        name="description"
+        content={`See the products in ${data.name} category`}
+      />
+      <meta property="og:title" content={`${data.name}`} />
+      <meta
+        property="og:description"
+        content={`See the products in ${data.name} category`}
+      />
+    </Head>
+  );
+
   return (
-    <Layout>
+    <Layout Header={head}>
       <div className="mb-4 flex w-full items-end justify-between rounded-lg border bg-white p-4">
         <div className="flex items-end gap-x-2 ">
           <p className="hidden lg:block">Current Category:</p>

@@ -13,7 +13,12 @@ const Reviews = (props: Props) => {
   return (
     <AccountLayout>
       <div className="col-span-12 row-start-4">
-        <h1 className="self-end text-base text-neutral-600">Reviews</h1>
+        <div className="flex flex-row gap-x-2">
+          <div className="self-center rounded-lg bg-blue-400 px-2 py-[2px] text-center text-sm font-medium text-blue-900">
+            WIP
+          </div>
+          <h1 className="self-end text-base text-neutral-600">Reviews</h1>
+        </div>
         <div className="grid grid-cols-2 gap-2">
           {!reviews ? (
             <div className="col-span-2 flex justify-center">

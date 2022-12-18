@@ -9,9 +9,11 @@ import { storeType } from "../redux/store";
 import { clearUser, getCurrentUser } from "../redux/user/userSlice";
 import MobileNavbar from "./MobileNavbar";
 import Navbar from "./Navbar";
+import Link from "next/link";
 
 type Props = {
   children: any;
+  Header: any;
 };
 
 const Layout = (props: Props) => {
@@ -52,11 +54,16 @@ const Layout = (props: Props) => {
   }, [session]);
   return (
     <div className="relative h-screen">
-      <Head>
-        <title>FAE E-COMMERCE</title>
-        <meta name="description" content="E-Commerce App" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+      {props.Header ? (
+        props.Header
+      ) : (
+        <Head>
+          <title>FAE - ECOMMERCE APP</title>
+          <meta name="description" content="E-Commerce App" />
+          <link rel="icon" href="/favicon.ico" />
+        </Head>
+      )}
+
       <Navbar />
       <MobileNavbar />
       <main className="min-w-screen bg-white">
@@ -70,27 +77,53 @@ const Layout = (props: Props) => {
             <div id="-1-1">
               <div className="text-lg text-neutral-200">Business</div>
               <div className="flex flex-col items-start gap-y-1 text-sm text-neutral-500">
-                <div className="w-full cursor-pointer hover:underline">
-                  About Us
-                </div>
-                <div className="w-full cursor-pointer hover:underline">
-                  Help
-                </div>
+                <Link
+                  href={"https://www.linkedin.com/in/sinan-gurcan/"}
+                  target="_blank"
+                  passHref
+                >
+                  <a
+                    rel="noopener noreferrer"
+                    target="_blank"
+                    className="w-full cursor-pointer hover:underline"
+                  >
+                    About Us
+                  </a>
+                </Link>
+                <Link
+                  href={"https://www.linkedin.com/in/sinan-gurcan/"}
+                  target="_blank"
+                  passHref
+                >
+                  <a
+                    rel="noopener noreferrer"
+                    target="_blank"
+                    className="w-full cursor-pointer hover:underline"
+                  >
+                    Help
+                  </a>
+                </Link>
                 <div className="w-full cursor-pointer hover:underline">FAQ</div>
               </div>
             </div>
             <div id="-1-2">
               <div className="text-lg text-neutral-200">Categories</div>
               <div className="flex flex-col items-start gap-y-1 text-sm text-neutral-500">
-                <div className="w-full cursor-pointer hover:underline">
-                  Electronics
-                </div>
-                <div className="w-full cursor-pointer hover:underline">
-                  Housing
-                </div>
-                <div className="w-full cursor-pointer hover:underline">
-                  Clothing
-                </div>
+                <Link href={"/category/electronics"}>
+                  <div className="w-full cursor-pointer hover:underline">
+                    Electronics
+                  </div>
+                </Link>
+                <Link href={"/category/housing"}>
+                  <div className="w-full cursor-pointer hover:underline">
+                    Housing
+                  </div>
+                </Link>
+                <Link href={"/category/clothing"}>
+                  <div className="w-full cursor-pointer hover:underline">
+                    Clothing
+                  </div>
+                </Link>
               </div>
             </div>
             <div id="-1-3">
