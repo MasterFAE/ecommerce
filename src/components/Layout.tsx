@@ -13,7 +13,7 @@ import Link from "next/link";
 
 type Props = {
   children: any;
-  Header: any;
+  Header?: any;
 };
 
 const Layout = (props: Props) => {

@@ -33,7 +33,7 @@ const HeroSection = (props: Props) => {
 
   const [index, setIndex] = useState(0);
 
-  function renderItem(_id) {
+  function renderItem(_id: number) {
     const source = dummyMd[_id];
     return (
       <div className="w-full bg-red-50">

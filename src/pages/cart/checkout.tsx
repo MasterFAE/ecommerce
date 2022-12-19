@@ -39,7 +39,6 @@ const CartPhase2 = (props: Props) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [total, setTotal] = useState(0);
-
   const [card, setCard] = useState({
     cardnumber: "",
     ccname: "",
